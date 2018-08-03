@@ -1,5 +1,4 @@
 # Design Patterns In Typescript
-Various design patterns demonstrated in Typescript.
 
 This application demonstrates how you can use design patterns in an Angular 5+ application.
 
