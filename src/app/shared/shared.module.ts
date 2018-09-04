@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeModule } from '../home/home.module';
 import { LayoutModule } from './layout/layout.module';
+import { SetActiveDirective } from './directives/set-active.directive';
 
 @NgModule({
   imports: [
     CommonModule,
-    LayoutModule
+    // LayoutModule
   ],
-  declarations: [],
+  declarations: [SetActiveDirective],
   exports: [
-    LayoutModule
+    // LayoutModule,
+    SetActiveDirective
   ]
 })
 export class SharedModule { }

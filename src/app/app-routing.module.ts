@@ -11,6 +11,10 @@ const routes: Routes = [
       {
         path: 'patterns',
         loadChildren: 'app/patterns/patterns.module#PatternsModule'
+      },
+      {
+        path: 'guidelines',
+        loadChildren: 'app/guidelines/guidelines.module#GuidelinesModule'
       }
     ]
   },

@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { LayoutModule } from './shared/layout/layout.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
   ],
   imports: [
     BrowserModule,
+    LayoutModule,
     SharedModule,
     AppRoutingModule
   ],
