@@ -12,8 +12,4 @@ export class PrimaryNavComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSelect(item: string) {
-    // console.log('item selected: ', item);
-  }
-
 }
