@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<!-- <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -51,6 +51,73 @@
           </li>
           <li routerLinkActive="active"><a routerLink="/guidelines">Contribute</a></li>
         </ul>
-      </div><!--/.nav-collapse -->
+      </div>
     </div>
-  </nav>
+  </nav> -->
+
+<nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #e7e7e7;">
+  <a class="navbar-brand" href="#">Design Patterns in Typescript</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/home">Home</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/guidelines">Contribute</a>
+      </li>
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Patterns</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h4 class="dropdown-item" class="dropdown-header">Creational Patterns</h4>
+                    <a class="dropdown-item">Abstract Factory Pattern</a>
+                    <a class="dropdown-item">Builder Pattern</a>
+                    <a class="dropdown-item">Factory Method Pattern</a>
+                    <a class="dropdown-item">Prototype Pattern</a>
+                    <a class="dropdown-item">Singleton Pattern</a>
+                    <div class="dropdown-divider"></div>
+                  </div>
+
+                  <div class="col-4">
+                    <h4 class="dropdown-item" class="dropdown-header">Structural Patterns</h4>
+
+                    <a class="dropdown-item">Adapter Pattern</a>
+                    <a class="dropdown-item">Bridge Pattern</a>
+                    <a class="dropdown-item">Composite Pattern</a>
+                    <a class="dropdown-item">Decorator Pattern</a>
+                    <a class="dropdown-item">Facade Pattern</a>
+                    <a class="dropdown-item">Flyweight Pattern</a>
+                    <a class="dropdown-item">Proxy Pattern</a>
+                    <div class="dropdown-divider"></div>
+                  </div>
+
+                  <div class="col-4">
+                    <h4 class="dropdown-item" class="dropdown-header">Behavioral Patterns</h4>
+
+                    <a class="dropdown-item">Chain of Responsibility Pattern</a>
+                    <a class="dropdown-item">Command Pattern</a>
+                    <a class="dropdown-item">Interpreter Pattern</a>
+                    <a class="dropdown-item">Iterator Pattern</a>
+                    <a class="dropdown-item" routerLink="/patterns/mediator">Mediator Pattern</a>
+                    <a class="dropdown-item">Memento Pattern</a>
+                    <a class="dropdown-item">Observer Pattern</a>
+                    <a class="dropdown-item">State Pattern</a>
+                    <a class="dropdown-item">Strategy Pattern</a>
+                    <a class="dropdown-item">Template Method Pattern</a>
+                    <a class="dropdown-item">Visitor Pattern</a>
+                  </div>
+            </div>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
