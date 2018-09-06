@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { WithoutRoutingModule } from './without-routing.module';
 import { WithoutComponent } from './without.component';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     WithoutRoutingModule
   ],
   declarations: [WithoutComponent]

@@ -8,3 +8,18 @@ body {
   min-width: 260px;
   padding-left: 20px;
 }
+
+.blue {
+  color: rgb(53, 116, 241);
+}
+
+
+
+
+
+
+.blue-bg {
+  background-color: rgb(16, 88, 231);
+}
+
+

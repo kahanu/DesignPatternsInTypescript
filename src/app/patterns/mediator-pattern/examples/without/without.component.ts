@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-without',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./without.component.css']
 })
 export class WithoutComponent implements OnInit {
+
+  faPlus = faPlus;
 
   constructor() { }
 
