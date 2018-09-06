@@ -11,3 +11,8 @@ export class Branch extends Entity {
   name: string;
 }
 
+export class Account extends Entity {
+  branchId: any;
+  accountNumber: string;
+}
+

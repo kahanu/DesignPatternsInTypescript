@@ -1,0 +1,85 @@
+[
+  {
+    "id": "1",
+    "name": "Citibank",
+    "branches": [
+      {
+        "id": "1",
+        "bankId": "1",
+        "name": "Woodfield Branch",
+        "accounts": [
+          {
+            "id": "1",
+            "branchId": "1",
+            "accountNumber": "48973937"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "bankId": "1",
+        "name": "West Main Branch",
+        "accounts": [
+          {
+            "id": "2",
+            "branchId": "2",
+            "accountNumber": "999888777"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Wells Fargo",
+    "branches": [
+      {
+        "id": "1",
+        "bankId": "2",
+        "name": "Stonebridge Plaza",
+        "accounts": [ ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "1st National",
+    "branches": [
+      {
+        "id": "12",
+        "bankId": "3",
+        "name": "Morgan St.",
+        "accounts": [
+          {
+            "id": "1",
+            "branchId": "12",
+            "accountNumber": "8292829"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Chase",
+    "branches": [
+      {
+        "id": "23",
+        "bankId": "4",
+        "name": "Lowes Center",
+        "accounts": [
+          {
+            "id": "1",
+            "branchId": "23",
+            "accountNumber": "664477444"
+          },
+          {
+            "id": "2",
+            "branchId": "23",
+            "accountNumber": "22882299"
+          }
+        ]
+      }
+    ]
+  }
+]

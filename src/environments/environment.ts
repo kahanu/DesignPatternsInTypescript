@@ -3,6 +3,9 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+const LOCALHOST = 'http://localhost:4200/assets/api/patterns/';
+
 export const environment = {
-  production: false
+  production: false,
+  Api: LOCALHOST
 };
