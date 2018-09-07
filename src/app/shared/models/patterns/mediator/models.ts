@@ -11,8 +11,14 @@ export class Branch extends Entity {
   name: string;
 }
 
-export class Account extends Entity {
+export class BranchAccount extends Entity {
   branchId: any;
   accountNumber: string;
+}
+
+export class BankAccountForm extends Entity {
+  bankId: string;
+  branchId: string;
+  accounts: BranchAccount[] = [];
 }
 

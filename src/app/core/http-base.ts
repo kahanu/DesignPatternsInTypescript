@@ -16,14 +16,6 @@ export abstract class HttpBase<T extends Entity | any> {
     this.url = environment.Api;
   }
 
-  fetch(path: string): Observable<ResponseBase> {
-    const Url = this.url.concat(path);
-    return this.http
-      .get<ResponseBase>(Url)
-      .pipe(catchError(this.exceptionService.catchBadResponse));
-  }
-
-
   /**
    * Get all as the strongly-typed response of type ResponseBase,
    * which can contain any type of data.

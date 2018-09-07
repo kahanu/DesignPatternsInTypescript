@@ -13,13 +13,22 @@ body {
   color: rgb(53, 116, 241);
 }
 
-
-
-
-
-
 .blue-bg {
   background-color: rgb(16, 88, 231);
 }
 
+input.form-control.ng-valid[required],
+textarea.form-control.ng-valid[required],
+select.form-control.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42A948; /* green */
+  border-radius: 3px;
+}
+
+input.form-control.ng-invalid:not(form),
+select.form-control.ng-invalid:not(form),
+textarea.form-control.ng-invalid:not(form)  {
+  border: 1px solid #a94442;
+  border-left: 5px solid #a94442; /* red */
+}
 

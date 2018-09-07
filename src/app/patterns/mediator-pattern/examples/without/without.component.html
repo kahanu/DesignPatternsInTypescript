@@ -1,33 +1,62 @@
 <div class="card">
   <div class="card-header">
-    Bank Accounts (without Mediator Pattern)
+    Bank accounts (without Mediator Pattern)
   </div>
-  <div class="card-body">
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <h5>Select Bank</h5>
-          <select class="form-control">
+  <div class="card-body" *ngIf="bankList">
+    <form [formGroup]="form">
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <h5>Select Bank</h5>
+            <select class="form-control" (change)="onBankChange($event.target.value)" formControlName="bankId">
+              <option *ngFor="let bank of bankList" [value]="bank.id">{{ bank.name }}</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <h5>Select Branch</h5>
+            <select class="form-control" (change)="onSelectBranch($event.target.value)" formControlName="branchId">
+              <option *ngFor="let branch of branchList" [value]="branch.id">{{ branch.name }}</option>
+            </select>
+          </div>
+          <div class="col-4" *ngIf="showAccounts">
+            <h5>Account Number</h5>
+            <div formArrayName="accounts">
+              <div *ngFor="let acct of form.get('accounts')['controls']; let i = index;" class="account-block">
+                <div>
+                  <span>Account {{ i + 1 }}</span>
+                  <span *ngIf="form.get('accounts')['controls'].length > 1">
+                    <fa-icon class="remove-icon" [icon]="faTimesCircle" title="Remove Account" (click)="removeAccount(i)"></fa-icon>
+                  </span>
+                </div>
+                <div [formGroupName]="i" style="min-height: 40px;">
+                  <div class="form-group">
+                    <label for="accountNumber" class="control-label col-sm-12">Account Number: </label>
+                    <div class="col-sm-12">
+                      <input type="text" formControlName="accountNumber" class="form-control" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
 
-          </select>
-          <a class="bank-link">
-            <fa-icon [icon]="faPlus" class="blue"></fa-icon> Add Bank</a>
-        </div>
-        <div class="col-4">
-          <h5>Select Branch</h5>
-          <select class="form-control">
-
-          </select>
-          <a class="bank-link"><fa-icon [icon]="faPlus" class="blue"></fa-icon> Add Branch</a>
-        </div>
-        <div class="col-4">
-          <h5>Account Number</h5>
-          <input type="text" class="form-control">
+                <a (click)="addAccount()">
+                  <fa-icon [icon]="faPlus" class="blue"></fa-icon> Add Account
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
   <div class="card-footer">
-    <button class="btn btn-primary btn-sm">Save</button>
+    <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
+    <button class="btn btn-default btn-sm" (click)="clearForm()" [disabled]="isDisabled">Clear</button>
+  </div>
+</div>
+<div class="card json-result" *ngIf="result">
+  <div class="card-header">Payload ready to be sent to your Api service</div>
+  <div class="card-body">
+    <pre>{{ result }}</pre>
   </div>
 </div>

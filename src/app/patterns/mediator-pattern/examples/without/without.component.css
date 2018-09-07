@@ -2,3 +2,19 @@
   display: block;
   margin-top: 10px;
 }
+
+.account-block {
+  border: 1px solid #dedede;
+  padding: 10px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.remove-icon {
+  float: right;
+}
+
+.json-result {
+  margin-top: 10px;
+  background-color: #f0f0f0;
+}
