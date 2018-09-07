@@ -4,7 +4,8 @@ import { MediatorPatternComponent } from './mediator-pattern.component';
 
 const routes: Routes = [
   { path: '', component: MediatorPatternComponent },
-  { path: 'without', loadChildren: 'app/patterns/mediator-pattern/examples/without/without.module#WithoutModule' }
+  { path: 'without', loadChildren: 'app/patterns/mediator-pattern/examples/without/without.module#WithoutModule' },
+  { path: 'with', loadChildren: 'app/patterns/mediator-pattern/examples/with/with.module#WithModule' }
 ];
 
 @NgModule({
