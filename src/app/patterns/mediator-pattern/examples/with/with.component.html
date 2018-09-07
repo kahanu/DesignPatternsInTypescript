@@ -16,16 +16,18 @@
           <div class="col-4">
             <h5>Select Bank</h5>
             <select class="form-control" (change)="onBankChange($event.target.value)" formControlName="bankId">
+              <option [value]="null">Select Bank</option>
               <option *ngFor="let bank of bankList" [value]="bank.id">{{ bank.name }}</option>
             </select>
           </div>
           <div class="col-4">
             <h5>Select Branch</h5>
             <select class="form-control" (change)="onSelectBranch($event.target.value)" formControlName="branchId">
-              <option *ngFor="let branch of branchList" [value]="branch.id">{{ branch.name }}</option>
+              <option [value]="null">Select Branch</option>
+              <option *ngFor="let branch of uiStateContext.branchList" [value]="branch.id">{{ branch.name }}</option>
             </select>
           </div>
-          <div class="col-4" *ngIf="showAccounts">
+          <div class="col-4" *ngIf="uiStateContext.showAccounts">
             <h5>Account Number</h5>
             <div formArrayName="accounts">
               <div *ngFor="let acct of form.get('accounts')['controls']; let i = index;" class="account-block">
@@ -58,12 +60,12 @@
   </div>
   <div class="card-footer">
     <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
-    <button class="btn btn-default btn-sm" (click)="clearForm()" [disabled]="isDisabled">Clear</button>
+    <button class="btn btn-default btn-sm" (click)="clearForm()" [disabled]="uiStateContext.isDisabled">Clear</button>
   </div>
 </div>
-<div class="card json-result" *ngIf="result">
+<div class="card json-result" *ngIf="uiStateContext.result">
   <div class="card-header">Payload ready to be sent to your Api service</div>
   <div class="card-body">
-    <pre>{{ result }}</pre>
+    <pre>{{ uiStateContext.result }}</pre>
   </div>
 </div>

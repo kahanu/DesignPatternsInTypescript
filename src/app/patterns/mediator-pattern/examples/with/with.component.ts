@@ -1,9 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormArray } from '@angular/forms';
-import { Bank, Branch, BranchAccount, BankAccountForm } from '../../../../shared/models/patterns/mediator/models';
+import {
+  Bank,
+  Branch,
+  BranchAccount,
+  BankAccountForm
+} from '../../../../shared/models/patterns/mediator/models';
 import { MediatorService } from '../../../../core/services/patterns/mediator/mediator.service';
 import { CommonFormGroups } from '../../../../shared/formgroups/common';
+import {
+  Mediator,
+  BankingMediator,
+  Colleague,
+  BankColleague,
+  BankState,
+  BranchColleague,
+  SaveColleague,
+  ClearColleague
+} from './pattern/mediator';
+import { UIStateContext } from './pattern/state-context';
 
 @Component({
   selector: 'app-with',
@@ -16,17 +32,24 @@ export class WithComponent implements OnInit {
 
   form: FormGroup;
   bankList: Bank[] = [];
-  branchList: Branch[] = [];
+  // branchList: Branch[] = [];
   accountList: BranchAccount[] = [];
 
   selectedBank: Bank;
   selectedBranch: Branch;
 
   branchesDisabled = true;
-  showAccounts: boolean;
-  isDisabled: boolean;
+  // showAccounts: boolean;
+  // isDisabled: boolean;
 
-  result: any;
+  // result: any;
+
+  uiStateContext: UIStateContext = new UIStateContext();
+  mediator: Mediator;
+  bankColleague: Colleague;
+  branchColleague: Colleague;
+  saveColleague: Colleague;
+  clearColleague: Colleague;
 
   constructor(
     private mediatorService: MediatorService,
@@ -34,9 +57,23 @@ export class WithComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isDisabled = true;
+    // this.isDisabled = true;
     this.initForm();
     this.getBanks();
+
+    this.uiStateContext.form = this.form;
+
+    this.mediator = new BankingMediator(this.uiStateContext);
+    this.bankColleague = new BankColleague(this.mediator);
+    this.branchColleague = new BranchColleague(this.mediator);
+    this.saveColleague = new SaveColleague(this.mediator);
+    this.clearColleague = new ClearColleague(this.mediator);
+
+    this.mediator.register(this.bankColleague);
+    this.mediator.register(this.branchColleague);
+    this.mediator.register(this.saveColleague);
+    this.mediator.register(this.clearColleague);
+    this.uiStateContext.isDisabled = true;
   }
 
   getBanks() {
@@ -45,42 +82,49 @@ export class WithComponent implements OnInit {
         const bankList = res['bankList'] as Bank[];
         this.bankList.length = 0;
         this.bankList = bankList;
-        this.bankList.unshift({ id: null, name: 'Select Bank' });
+        // this.bankList.unshift({ id: null, name: 'Select Bank' });
+        // this.form.get('bankId').setValue('Select Bank', {onlySelf: true});
         this.form.get('branchId').disable();
       }
     });
   }
 
   onBankChange(e: any) {
-    this.showAccounts = false;
-    this.result = null;
+    console.log('bank e: ', e);
+    // this.showAccounts = false;
+    // this.result = null;
     const bank = this.bankList.find(item => item.id === e);
     if (bank) {
-      this.form.get('branchId').enable();
+      // this.form.get('branchId').enable();
       this.getBranches(e);
+      this.bankColleague.send(BankState.bankSelected);
     } else {
-      this.branchList.length = 0;
-      this.form.get('branchId').disable();
+      this.uiStateContext.branchList.length = 0;
+      // this.form.get('branchId').disable();
+      this.bankColleague.send(BankState.bankNotSelected);
     }
   }
 
   getBranches(id: string) {
     const bank = this.bankList.find(item => item.id === id);
+    console.log('bank: ', bank);
     this.selectedBank = bank;
     if (bank) {
       const branches = bank['branches'];
-      this.branchList.length = 0;
-      this.branchList = branches;
-      this.branchList.unshift({ id: null, bankId: id, name: 'Select Branch' });
-      this.form.get('branchId').enable();
+      this.uiStateContext.branchList.length = 0;
+      this.uiStateContext.branchList = branches;
+      // this.form.get('branchId').setValue('Select Branch', {onlySelf: true});
+      // this.uiStateContext.branchList.unshift({ id: null, bankId: id, name: 'Select Branch' });
+      // this.form.get('branchId').enable();
     }
   }
 
   onSelectBranch(e: any) {
-    const branch = this.branchList.find(item => item.id === e);
+    const branch = this.uiStateContext.branchList.find(item => item.id === e);
     if (branch) {
-      this.showAccounts = true;
-      this.isDisabled = false;
+      this.bankColleague.send(BankState.branchSelected);
+      // this.showAccounts = true;
+      // this.isDisabled = false;
       const accts = branch['accounts'];
       const accounts = <FormArray>this.form.get('accounts');
       accounts.controls.length = 0;
@@ -92,7 +136,8 @@ export class WithComponent implements OnInit {
         this.addAccount();
       }
     } else {
-      this.showAccounts = false;
+      // this.showAccounts = false;
+      this.bankColleague.send(BankState.branchNotSelected);
     }
   }
 
@@ -111,13 +156,10 @@ export class WithComponent implements OnInit {
   }
 
   save() {
-    this.result = JSON.stringify(this.form.value, null, 2);
+    this.bankColleague.send(BankState.save);
   }
 
   clearForm() {
-    this.form.reset();
-    this.showAccounts = false;
-    this.form.get('branchId').disable();
-    this.result = null;
+    this.bankColleague.send(BankState.clearForm);
   }
 }
