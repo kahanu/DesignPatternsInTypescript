@@ -1,7 +1,8 @@
 import { UIStateContext } from './state-context';
 import { FormArray } from '@angular/forms';
 
-export enum BankState {
+//#region Event State
+export enum eventState {
   init,
   bankSelected,
   bankNotSelected,
@@ -11,9 +12,12 @@ export enum BankState {
   clearForm
 }
 
+//#endregion
+
+//#region Mediator Interface and abstract Colleague
 export interface Mediator {
   register(control: Colleague);
-  send(state: BankState, colleague: Colleague);
+  send(state: eventState, colleague: Colleague);
 }
 
 export abstract class Colleague {
@@ -23,13 +27,16 @@ export abstract class Colleague {
     this.mediator = m;
   }
 
-  send(state: BankState): void {
+  send(state: eventState): void {
     this.mediator.send(state, this);
   }
 
-  abstract receive(state: BankState, ui: UIStateContext);
+  abstract receive(state: eventState, ui: UIStateContext);
 }
 
+//#endregion
+
+//#region BankingMediator
 export class BankingMediator implements Mediator {
   private colleageList: Array<Colleague>;
 
@@ -41,7 +48,7 @@ export class BankingMediator implements Mediator {
     this.colleageList.push(control);
   }
 
-  send(state: BankState, originator: Colleague) {
+  send(state: eventState, originator: Colleague) {
     this.colleageList.forEach(item => {
       if (item !== originator) {
         item.receive(state, this.uiStateContext);
@@ -50,13 +57,17 @@ export class BankingMediator implements Mediator {
   }
 }
 
+//#endregion
+
+//#region Concrete Colleagues
+
 export class BankColleague extends Colleague {
   constructor(m: Mediator) {
     super(m);
   }
 
-  receive(state: BankState, ui: UIStateContext) {
-    if (state === 0) {
+  receive(state: eventState, ui: UIStateContext) {
+    if (state === eventState.init) {
       ui.isDisabled = true;
     }
   }
@@ -68,57 +79,76 @@ export class BranchColleague extends Colleague {
     super(m);
   }
 
-  receive(state: BankState, ui: UIStateContext) {
-    if (state === 1) {
-      // bank selected
-      ui.showAccounts = false;
-      ui.result = null;
+  receive(state: eventState, ui: UIStateContext) {
+    if (state === eventState.bankSelected
+      || state === eventState.save
+      || state === eventState.branchSelected) {
       ui.form.get('branchId').enable();
-    } else if (state === 2) {
-      // bank not selected
-      ui.form.reset();
+    } else {
       ui.form.get('branchId').disable();
-      ui.branchList.length = 0;
-      ui.showAccounts = false;
-      ui.result = null;
-      ui.isDisabled = true;
-    } else if (state === 3) {
-      // branch selected
-      ui.showAccounts = true;
-      ui.isDisabled = false;
-    } else if (state === 4) {
-      // branch not selected
-      ui.showAccounts = false;
-      ui.isDisabled = true;
     }
+    // } else if (state === eventState.bankNotSelected) {
+    //   ui.form.reset();
+    //   ui.form.get('branchId').disable();
+    //   ui.branchList.length = 0;
+    //   ui.isDisabled = true;
+    // } else if (state === eventState.branchSelected) {
+    //   ui.isDisabled = false;
+    // } else if (state === eventState.branchNotSelected) {
+    //   ui.isDisabled = true;
+    // }
   }
 }
 
-export class SaveColleague extends Colleague {
+export class ClearButtonColleague extends Colleague {
   constructor(m: Mediator) {
     super(m);
   }
 
-  receive(state: BankState, ui: UIStateContext) {
-    if (state === 5) {
-      ui.result = JSON.stringify(ui.form.value, null, 2);
-    }
-  }
-}
-
-export class ClearColleague extends Colleague {
-  constructor(m: Mediator) {
-    super(m);
-  }
-
-  receive(state: BankState, ui: UIStateContext) {
-    if (state === 6) {
-      ui.branchList.length = 0;
+  receive(state: eventState, ui: UIStateContext) {
+    if (state === eventState.clearForm) {
+      // ui.branchList.length = 0;
       ui.form.reset();
-      ui.showAccounts = false;
-      ui.result = null;
-      const ctrl = ui.form.get('branchId');
-      ctrl.disable();
+      // ui.result = null;
+      // ui.form.get('branchId').disable();
+    } else if (state === eventState.branchSelected
+      || state === eventState.save) {
+      ui.isDisabled = false;
+    } else {
+      ui.isDisabled = true;
     }
   }
 }
+
+export class ShowAccountsColleague extends Colleague {
+  constructor(m: Mediator) {
+    super(m);
+  }
+
+  receive(state: eventState, ui: UIStateContext) {
+    if (state === eventState.branchSelected
+      || state === eventState.save) {
+      ui.showAccounts = true;
+    } else {
+      ui.showAccounts = false;
+    }
+  }
+}
+
+export class JsonResultColleague extends Colleague {
+  constructor(m: Mediator) {
+    super(m);
+  }
+
+  receive(state: eventState, ui: UIStateContext) {
+    if (state === eventState.save) {
+      ui.result = JSON.stringify(ui.form.value, null, 2);
+    } else {
+      ui.result = null;
+    }
+  }
+}
+
+
+
+//#endregion

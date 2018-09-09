@@ -14,10 +14,11 @@ import {
   BankingMediator,
   Colleague,
   BankColleague,
-  BankState,
+  eventState,
   BranchColleague,
-  SaveColleague,
-  ClearColleague
+  ClearButtonColleague,
+  ShowAccountsColleague,
+  JsonResultColleague
 } from './pattern/mediator';
 import { UIStateContext } from './pattern/state-context';
 
@@ -48,8 +49,9 @@ export class WithComponent implements OnInit {
   mediator: Mediator;
   bankColleague: Colleague;
   branchColleague: Colleague;
-  saveColleague: Colleague;
+  jsonResultColleague: Colleague;
   clearColleague: Colleague;
+  showAccountsColleague: Colleague;
 
   constructor(
     private mediatorService: MediatorService,
@@ -66,13 +68,15 @@ export class WithComponent implements OnInit {
     this.mediator = new BankingMediator(this.uiStateContext);
     this.bankColleague = new BankColleague(this.mediator);
     this.branchColleague = new BranchColleague(this.mediator);
-    this.saveColleague = new SaveColleague(this.mediator);
-    this.clearColleague = new ClearColleague(this.mediator);
+    this.jsonResultColleague = new JsonResultColleague(this.mediator);
+    this.clearColleague = new ClearButtonColleague(this.mediator);
+    this.showAccountsColleague = new ShowAccountsColleague(this.mediator);
 
     this.mediator.register(this.bankColleague);
     this.mediator.register(this.branchColleague);
-    this.mediator.register(this.saveColleague);
+    this.mediator.register(this.jsonResultColleague);
     this.mediator.register(this.clearColleague);
+    this.mediator.register(this.showAccountsColleague);
     this.uiStateContext.isDisabled = true;
   }
 
@@ -97,11 +101,11 @@ export class WithComponent implements OnInit {
     if (bank) {
       // this.form.get('branchId').enable();
       this.getBranches(e);
-      this.bankColleague.send(BankState.bankSelected);
+      this.bankColleague.send(eventState.bankSelected);
     } else {
       this.uiStateContext.branchList.length = 0;
       // this.form.get('branchId').disable();
-      this.bankColleague.send(BankState.bankNotSelected);
+      this.bankColleague.send(eventState.bankNotSelected);
     }
   }
 
@@ -122,7 +126,7 @@ export class WithComponent implements OnInit {
   onSelectBranch(e: any) {
     const branch = this.uiStateContext.branchList.find(item => item.id === e);
     if (branch) {
-      this.bankColleague.send(BankState.branchSelected);
+      this.bankColleague.send(eventState.branchSelected);
       // this.showAccounts = true;
       // this.isDisabled = false;
       const accts = branch['accounts'];
@@ -137,7 +141,7 @@ export class WithComponent implements OnInit {
       }
     } else {
       // this.showAccounts = false;
-      this.bankColleague.send(BankState.branchNotSelected);
+      this.bankColleague.send(eventState.branchNotSelected);
     }
   }
 
@@ -156,10 +160,10 @@ export class WithComponent implements OnInit {
   }
 
   save() {
-    this.bankColleague.send(BankState.save);
+    this.bankColleague.send(eventState.save);
   }
 
   clearForm() {
-    this.bankColleague.send(BankState.clearForm);
+    this.bankColleague.send(eventState.clearForm);
   }
 }
