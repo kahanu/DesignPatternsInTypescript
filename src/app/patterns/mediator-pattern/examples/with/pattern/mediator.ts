@@ -68,7 +68,7 @@ export class BankColleague extends Colleague {
 
   receive(state: eventState, ui: UIStateContext) {
     if (state === eventState.init) {
-      ui.isDisabled = true;
+      ui.clearButtonIsDisabled = true;
     }
   }
 }
@@ -85,18 +85,10 @@ export class BranchColleague extends Colleague {
       || state === eventState.branchSelected) {
       ui.form.get('branchId').enable();
     } else {
+      ui.branchList.length = 0;
       ui.form.get('branchId').disable();
+      ui.clearButtonIsDisabled = true;
     }
-    // } else if (state === eventState.bankNotSelected) {
-    //   ui.form.reset();
-    //   ui.form.get('branchId').disable();
-    //   ui.branchList.length = 0;
-    //   ui.isDisabled = true;
-    // } else if (state === eventState.branchSelected) {
-    //   ui.isDisabled = false;
-    // } else if (state === eventState.branchNotSelected) {
-    //   ui.isDisabled = true;
-    // }
   }
 }
 
@@ -106,16 +98,11 @@ export class ClearButtonColleague extends Colleague {
   }
 
   receive(state: eventState, ui: UIStateContext) {
-    if (state === eventState.clearForm) {
-      // ui.branchList.length = 0;
-      ui.form.reset();
-      // ui.result = null;
-      // ui.form.get('branchId').disable();
-    } else if (state === eventState.branchSelected
+    if (state === eventState.branchSelected
       || state === eventState.save) {
-      ui.isDisabled = false;
+      ui.clearButtonIsDisabled = false;
     } else {
-      ui.isDisabled = true;
+      ui.clearButtonIsDisabled = true;
     }
   }
 }
@@ -149,6 +136,17 @@ export class JsonResultColleague extends Colleague {
   }
 }
 
+export class SaveButtonColleague extends Colleague {
+  constructor(m: Mediator) {
+    super(m);
+  }
+
+  receive(state: eventState, ui: UIStateContext) {
+    // nothing needed here.  The button will be enabled or disabled
+    // based on the form validity.  But it's needed to send
+    // event notifications to the mediator that colleagues will receive.
+  }
+}
 
 
 //#endregion

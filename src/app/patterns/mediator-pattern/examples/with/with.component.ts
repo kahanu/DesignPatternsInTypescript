@@ -18,7 +18,8 @@ import {
   BranchColleague,
   ClearButtonColleague,
   ShowAccountsColleague,
-  JsonResultColleague
+  JsonResultColleague,
+  SaveButtonColleague
 } from './pattern/mediator';
 import { UIStateContext } from './pattern/state-context';
 
@@ -33,18 +34,12 @@ export class WithComponent implements OnInit {
 
   form: FormGroup;
   bankList: Bank[] = [];
-  // branchList: Branch[] = [];
   accountList: BranchAccount[] = [];
 
   selectedBank: Bank;
   selectedBranch: Branch;
 
-  branchesDisabled = true;
-  // showAccounts: boolean;
-  // isDisabled: boolean;
-
-  // result: any;
-
+  /** Setup the Mediator pattern to manage the UI control states. */
   uiStateContext: UIStateContext = new UIStateContext();
   mediator: Mediator;
   bankColleague: Colleague;
@@ -52,6 +47,7 @@ export class WithComponent implements OnInit {
   jsonResultColleague: Colleague;
   clearColleague: Colleague;
   showAccountsColleague: Colleague;
+  saveButtonColleague: Colleague;
 
   constructor(
     private mediatorService: MediatorService,
@@ -59,7 +55,6 @@ export class WithComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.isDisabled = true;
     this.initForm();
     this.getBanks();
 
@@ -71,13 +66,17 @@ export class WithComponent implements OnInit {
     this.jsonResultColleague = new JsonResultColleague(this.mediator);
     this.clearColleague = new ClearButtonColleague(this.mediator);
     this.showAccountsColleague = new ShowAccountsColleague(this.mediator);
+    this.saveButtonColleague = new SaveButtonColleague(this.mediator);
 
     this.mediator.register(this.bankColleague);
     this.mediator.register(this.branchColleague);
     this.mediator.register(this.jsonResultColleague);
     this.mediator.register(this.clearColleague);
     this.mediator.register(this.showAccountsColleague);
-    this.uiStateContext.isDisabled = true;
+    this.mediator.register(this.saveButtonColleague);
+    this.uiStateContext.clearButtonIsDisabled = true;
+
+    this.bankColleague.send(eventState.init);
   }
 
   getBanks() {
@@ -85,41 +84,30 @@ export class WithComponent implements OnInit {
       if (res.success) {
         const bankList = res['bankList'] as Bank[];
         this.bankList.length = 0;
-        this.bankList = bankList;
-        // this.bankList.unshift({ id: null, name: 'Select Bank' });
-        // this.form.get('bankId').setValue('Select Bank', {onlySelf: true});
-        this.form.get('branchId').disable();
+        this.bankList = [...bankList];
       }
     });
   }
 
   onBankChange(e: any) {
-    console.log('bank e: ', e);
-    // this.showAccounts = false;
-    // this.result = null;
     const bank = this.bankList.find(item => item.id === e);
     if (bank) {
-      // this.form.get('branchId').enable();
       this.getBranches(e);
       this.bankColleague.send(eventState.bankSelected);
     } else {
-      this.uiStateContext.branchList.length = 0;
-      // this.form.get('branchId').disable();
       this.bankColleague.send(eventState.bankNotSelected);
     }
   }
 
   getBranches(id: string) {
+
     const bank = this.bankList.find(item => item.id === id);
-    console.log('bank: ', bank);
+
     this.selectedBank = bank;
     if (bank) {
       const branches = bank['branches'];
       this.uiStateContext.branchList.length = 0;
       this.uiStateContext.branchList = branches;
-      // this.form.get('branchId').setValue('Select Branch', {onlySelf: true});
-      // this.uiStateContext.branchList.unshift({ id: null, bankId: id, name: 'Select Branch' });
-      // this.form.get('branchId').enable();
     }
   }
 
@@ -127,8 +115,6 @@ export class WithComponent implements OnInit {
     const branch = this.uiStateContext.branchList.find(item => item.id === e);
     if (branch) {
       this.bankColleague.send(eventState.branchSelected);
-      // this.showAccounts = true;
-      // this.isDisabled = false;
       const accts = branch['accounts'];
       const accounts = <FormArray>this.form.get('accounts');
       accounts.controls.length = 0;
@@ -140,7 +126,6 @@ export class WithComponent implements OnInit {
         this.addAccount();
       }
     } else {
-      // this.showAccounts = false;
       this.bankColleague.send(eventState.branchNotSelected);
     }
   }
@@ -160,10 +145,12 @@ export class WithComponent implements OnInit {
   }
 
   save() {
-    this.bankColleague.send(eventState.save);
+    this.saveButtonColleague.send(eventState.save);
   }
 
   clearForm() {
-    this.bankColleague.send(eventState.clearForm);
+    this.clearColleague.send(eventState.clearForm);
+    this.form.reset();
+    this.getBanks();
   }
 }

@@ -21,16 +21,14 @@ export class WithoutComponent implements OnInit {
 
   form: FormGroup;
   bankList: Bank[] = [];
-  branchList: Branch[] = [];
   accountList: BranchAccount[] = [];
 
   selectedBank: Bank;
   selectedBranch: Branch;
 
-  branchesDisabled = true;
+  branchList: Branch[] = [];
   showAccounts: boolean;
   isDisabled: boolean;
-
   result: any;
 
   constructor(

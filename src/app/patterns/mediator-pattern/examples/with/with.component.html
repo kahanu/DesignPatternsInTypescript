@@ -1,10 +1,10 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/">Patterns</a></li>
-      <li class="breadcrumb-item"><a routerLink="/patterns/mediator">Mediator Pattern</a></li>
-      <li class="breadcrumb-item active" aria-current="page">With</li>
-    </ol>
-  </nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Patterns</a></li>
+    <li class="breadcrumb-item"><a routerLink="/patterns/mediator">Mediator Pattern</a></li>
+    <li class="breadcrumb-item active" aria-current="page">With</li>
+  </ol>
+</nav>
 <div class="card">
   <div class="card-header">
     Bank accounts (WITH Mediator Pattern)
@@ -12,6 +12,18 @@
   <div class="card-body" *ngIf="bankList">
     <form [formGroup]="form">
       <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="wizard-wrapper">
+              <ol class="wizard-strip">
+                <li>Select Bank</li>
+                <li>Select Branch</li>
+                <li>Enter account number</li>
+                <li>Click Save</li>
+              </ol>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-4">
             <h5>Select Bank</h5>
@@ -48,7 +60,7 @@
               </div>
               <div>
 
-                <a (click)="addAccount()">
+                <a (click)="addAccount()" class="add-account">
                   <fa-icon [icon]="faPlus" class="blue"></fa-icon> Add Account
                 </a>
               </div>
@@ -60,7 +72,7 @@
   </div>
   <div class="card-footer">
     <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
-    <button class="btn btn-default btn-sm" (click)="clearForm()" [disabled]="uiStateContext.isDisabled">Clear</button>
+    <button class="btn btn-default btn-sm" (click)="clearForm()" [disabled]="uiStateContext.clearButtonIsDisabled">Clear</button>
   </div>
 </div>
 <div class="card json-result" *ngIf="uiStateContext.result">

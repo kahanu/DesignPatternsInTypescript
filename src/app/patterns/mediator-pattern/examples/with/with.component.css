@@ -18,3 +18,26 @@
   margin-top: 10px;
   background-color: #f0f0f0;
 }
+
+.wizard-wrapper {
+  padding: 15px;
+  border: 1px solid #e9700c;
+  background-color: #f07e14;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+ol.wizard-strip {
+  padding-bottom: 15px;
+}
+
+ol.wizard-strip > li {
+  float: left;
+  width: 25%;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+a.add-account {
+  cursor: pointer;
+}
