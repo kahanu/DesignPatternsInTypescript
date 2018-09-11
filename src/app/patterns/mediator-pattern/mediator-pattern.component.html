@@ -1,13 +1,25 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Mediator Pattern</h1>
-    <p>This pattern is useful in the UI to manage state for different components.</p>
+    <blockquote>The mediator pattern defines an object that encapsulates how a set of objects interact. This pattern is considered to be a behavioral pattern due to the way it can alter the program's running behavior.</blockquote>
+    <p>This pattern is useful in the UI to manage state for different components.  A good example is where you have a form that has many controls whose state, either visibility or whether it's enable/disabled, needs to be set in concert to other controls on the form.
+      The Mediator pattern is a great pattern for managing that UI state.
+    </p>
     <h3>Bank Accounts</h3>
     <p>This example application demonstrates how the Mediator pattern can manage the states of the various UI controls on your web application as you change the state of any other control.</p>
-
+    <p>This application is an Banking application where you need to add bank accounts.  There are inherant rules to whether you can do certain things on
+      the form and in what order.  For example, you can't enter an account number without first knowing what bank and branch the account belongs.
+    </p>
+    <p>This sample shows 2 different forms, one form without the Mediator pattern that just uses normal variables to set the state of controls, and a form With the Mediator pattern
+      that demonstrates how to implement the pattern.
+    </p>
     <p>
       <a routerLink="/patterns/mediator/without">Without the Mediator Pattern</a><br>
       <a routerLink="/patterns/mediator/with">With the Mediator Pattern</a>
+    </p>
+    <p>
+      <b>Disclaimer: </b> this implementation of the Mediator pattern is effective, but might be a little overkill for this particular form.
+      So this implementation is simply meant to demonstrate a real-world usage of the pattern.
     </p>
   </div>
 </div>

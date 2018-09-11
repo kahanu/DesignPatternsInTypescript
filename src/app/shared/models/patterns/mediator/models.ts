@@ -2,6 +2,8 @@ export class Entity {
   id: any;
 }
 
+//#region Bank Models
+
 export class Bank extends Entity {
   name: string;
 }
@@ -22,3 +24,4 @@ export class BankAccountForm extends Entity {
   accounts: BranchAccount[] = [];
 }
 
+//#endregion

@@ -32,3 +32,11 @@ textarea.form-control.ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
 
+blockquote {
+  padding: 10px 30px;
+  font-style: italic;
+  color: #656363;
+  background-color: #dedede;
+  border-radius: 5px;
+}
+

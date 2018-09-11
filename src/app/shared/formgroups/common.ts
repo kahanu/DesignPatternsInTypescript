@@ -7,6 +7,8 @@ export class CommonFormGroups {
 
   constructor(private fb: FormBuilder) {}
 
+  //#region Banking FormGroups
+
   initAccountForm(model?: BranchAccount) {
     return this.fb.group({
       id: [model ? model.id : ''],
@@ -33,4 +35,8 @@ export class CommonFormGroups {
       accounts:  this.initAccountsArray()
     });
   }
+
+  //#endregion
+
+
 }
