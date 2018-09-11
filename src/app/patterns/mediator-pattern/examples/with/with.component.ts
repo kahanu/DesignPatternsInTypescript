@@ -100,7 +100,6 @@ export class WithComponent implements OnInit {
   }
 
   getBranches(id: string) {
-
     const bank = this.bankList.find(item => item.id === id);
 
     this.selectedBank = bank;
@@ -114,7 +113,7 @@ export class WithComponent implements OnInit {
   onSelectBranch(e: any) {
     const branch = this.uiStateContext.branchList.find(item => item.id === e);
     if (branch) {
-      this.bankColleague.send(eventState.branchSelected);
+      this.branchColleague.send(eventState.branchSelected, true);
       const accts = branch['accounts'];
       const accounts = <FormArray>this.form.get('accounts');
       accounts.controls.length = 0;
@@ -126,7 +125,7 @@ export class WithComponent implements OnInit {
         this.addAccount();
       }
     } else {
-      this.bankColleague.send(eventState.branchNotSelected);
+      this.branchColleague.send(eventState.branchNotSelected, true);
     }
   }
 

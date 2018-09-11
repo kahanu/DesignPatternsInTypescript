@@ -17,7 +17,7 @@ export enum eventState {
 //#region Mediator Interface and abstract Colleague
 export interface Mediator {
   register(control: Colleague);
-  send(state: eventState, colleague: Colleague);
+  send(state: eventState, colleague: Colleague, includeSelf: boolean);
 }
 
 export abstract class Colleague {
@@ -27,8 +27,8 @@ export abstract class Colleague {
     this.mediator = m;
   }
 
-  send(state: eventState): void {
-    this.mediator.send(state, this);
+  send(state: eventState, includeSelf = false): void {
+    this.mediator.send(state, this, includeSelf);
   }
 
   abstract receive(state: eventState, ui: UIStateContext);
@@ -48,9 +48,11 @@ export class BankingMediator implements Mediator {
     this.colleageList.push(control);
   }
 
-  send(state: eventState, originator: Colleague) {
+  send(state: eventState, originator: Colleague, includeSelf = false) {
     this.colleageList.forEach(item => {
-      if (item !== originator) {
+      if (includeSelf) {
+        item.receive(state, this.uiStateContext);
+      } else if (item !== originator) {
         item.receive(state, this.uiStateContext);
       }
     });
