@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "homepage": "https://kahanu.github.io/designpatternsintypescript",
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.0",
@@ -28,6 +29,7 @@
     "boom": "^7.2.0",
     "core-js": "^2.4.1",
     "cryptiles": "^4.1.2",
+    "gh-pages": "^1.2.0",
     "hawk": "^7.0.7",
     "jquery": "^3.3.1",
     "less": "^3.8.0",
