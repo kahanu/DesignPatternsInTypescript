@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "gh-pages -d dist"
   },
   "homepage": "https://kahanu.github.io/designpatternsintypescript",
   "private": true,
@@ -26,6 +27,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "add": "^2.0.6",
+    "angular-cli-ghpages": "^0.5.3",
     "boom": "^7.2.0",
     "core-js": "^2.4.1",
     "cryptiles": "^4.1.2",
