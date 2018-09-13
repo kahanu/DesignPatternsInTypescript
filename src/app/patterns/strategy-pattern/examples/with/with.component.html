@@ -1,3 +1,44 @@
-<p>
-  with works!
-</p>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Patterns</a></li>
+    <li class="breadcrumb-item"><a routerLink="/patterns/strategy">Strategy Pattern</a></li>
+    <li class="breadcrumb-item active" aria-current="page">With</li>
+  </ol>
+</nav>
+<div class="card">
+  <div class="card-header">
+    Temperature Converter (WITH pattern)
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form class="form-inline">
+            <div class="form-group">
+              <label>Convert temperature</label>
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" />
+              <select class="form-control">
+                <option>Celsius</option>
+                <option>Fahrenheit</option>
+                <option>Kelvin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <select class="form-control">
+                <option>To Fahrenheit</option>
+                <option>To Celsius</option>
+                <option>To Kelvin</option>
+              </select>
+            </div>
+            <button class="btn btn-primary">Convert</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+
+  </div>
+</div>
