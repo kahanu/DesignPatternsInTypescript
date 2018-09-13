@@ -1,3 +1,4 @@
+/// <reference path="../../node_modules/typescript/lib/lib.es6.d.ts" />
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

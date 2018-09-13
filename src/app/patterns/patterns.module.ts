@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
+import { SharedModule } from '../shared/shared.module';
 import { PatternsRoutingModule } from './patterns-routing.module';
 import { MediatorPatternModule } from './mediator-pattern/mediator-pattern.module';
-import { SharedModule } from '../shared/shared.module';
+import { StrategyPatternModule } from './strategy-pattern/strategy-pattern.module';
 
 @NgModule({
   imports: [
     SharedModule,
     MediatorPatternModule,
+    StrategyPatternModule,
     PatternsRoutingModule
   ],
   declarations: []
