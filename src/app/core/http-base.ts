@@ -4,7 +4,7 @@ import { ResponseBase } from '../shared/models/base/base';
 import { environment } from '../../environments/environment';
 import { ExceptionService } from './services/exception.service';
 import { catchError } from 'rxjs/operators';
-import { Entity } from '../shared/models/patterns/mediator/models';
+import { Entity } from '../shared/models/base/base';
 
 export abstract class HttpBase<T extends Entity | any> {
   url: string;

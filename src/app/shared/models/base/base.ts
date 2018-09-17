@@ -3,3 +3,7 @@ export class ResponseBase {
   message: string;
   data: {} | any[];
 }
+
+export class Entity {
+  id: any;
+}

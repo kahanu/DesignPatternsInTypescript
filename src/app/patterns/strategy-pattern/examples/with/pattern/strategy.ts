@@ -1,44 +1,70 @@
 
-export enum TemperatureTypes { TOFAHRENHEIT, TOCELSIUS }
+export enum ConvertToTypes { TOFAHRENHEIT, TOCELSIUS, TOKELVIN }
+export enum ConvertFromTypes { FAHRENHEIT, CELSIUS, KELVIN }
 
 export class TemperatureContext {
-  current: number;
-  convert: TemperatureTypes;
+  convertTo: ConvertToTypes;
+  convertFrom: ConvertFromTypes;
 }
 
 interface Temperature {
-  calculate(current: number): string;
+  calculate(temperature: number): string;
 }
 
-class CelsiusToFahrenheitTemperature implements Temperature {
+class ToFahrenheitTemperature implements Temperature {
+  context: TemperatureContext;
+  constructor(context: TemperatureContext) {
+    this.context = context;
+  }
+  calculate(temperature: number): string {
+    if (this.validate()) {
+      const result = Math.round((temperature * 1.8) + 32);
+      return result.toString() + ' &#8457;';
+    }
+  }
 
-  calculate(current: number): string {
-    const result = current * 1.8 + 32;
-    return result.toString() + ' &deg;F';
+  validate() {
+    if (+this.context.convertFrom === +this.context.convertTo) {
+      console.log('not valid');
+      return false;
+    } else {
+      console.log('valid');
+      return true;
+    }
   }
 }
 
-class FahrenheitToCelsiusTemperature implements Temperature {
-  calculate(current: number): string {
-    const result = (current - 32) * 1.8;
-    return result.toString() + ' &deg;C';
+class ToCelsiusTemperature implements Temperature {
+  constructor(context: TemperatureContext) {
+
+  }
+  calculate(temperature: number): string {
+    const result = Math.round((temperature - 32) * .55555555);
+    return result.toString() + ' &#8451;';
+  }
+}
+
+class ToKelvinTemperature implements Temperature {
+  calculate(temperature: number): string {
+    const result = Math.round((temperature - 32));
+    return result.toString() + '';
   }
 }
 
 export class TemperatureConversionStrategy {
-  list: Map<TemperatureTypes, Temperature> = new Map<TemperatureTypes, Temperature>();
+  list: Map<ConvertToTypes, Temperature> = new Map<ConvertToTypes, Temperature>();
 
   constructor(private context: TemperatureContext) {
     this.defineInstances();
   }
 
-  calculate(current: number): string {
-    return this.list.get(this.context.convert).calculate(current);
+  calculate(temperature: number): string {
+    return this.list.get(this.context.convertTo).calculate(temperature);
   }
 
   private defineInstances() {
-    this.list.set(TemperatureTypes.TOCELSIUS, new FahrenheitToCelsiusTemperature());
-    this.list.set(TemperatureTypes.TOFAHRENHEIT, new CelsiusToFahrenheitTemperature());
+    this.list.set(ConvertToTypes.TOCELSIUS, new ToCelsiusTemperature(this.context));
+    this.list.set(ConvertToTypes.TOFAHRENHEIT, new ToFahrenheitTemperature(this.context));
   }
 }
 

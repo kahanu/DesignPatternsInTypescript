@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BranchAccount, Bank, BankAccountForm } from '../models/patterns/mediator/models';
+import { TemperatureForm } from '../models/patterns/strategy/models';
 
 @Injectable()
 export class CommonFormGroups {
 
   constructor(private fb: FormBuilder) {}
 
-  //#region Banking FormGroups
+  //#region Mediator Pattern - Banking FormGroups
 
   initAccountForm(model?: BranchAccount) {
     return this.fb.group({
@@ -37,6 +38,5 @@ export class CommonFormGroups {
   }
 
   //#endregion
-
 
 }

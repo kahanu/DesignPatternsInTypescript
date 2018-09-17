@@ -1,6 +1,4 @@
-export class Entity {
-  id: any;
-}
+import { Entity } from '../../base/base';
 
 //#region Bank Models
 

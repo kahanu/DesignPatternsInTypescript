@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { WithRoutingModule } from './with-routing.module';
 import { WithComponent } from './with.component';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     WithRoutingModule
   ],
   declarations: [WithComponent]
