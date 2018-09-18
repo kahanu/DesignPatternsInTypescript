@@ -11,6 +11,7 @@ export class WithComponent implements OnInit {
   temperatureForm: FormGroup;
   strategy: TemperatureConversionStrategy;
   convertedResult: string;
+  errorMessage: string;
 
   constructor(private fb: FormBuilder) { }
 
@@ -20,7 +21,7 @@ export class WithComponent implements OnInit {
 
   initForm() {
     this.temperatureForm = this.fb.group({
-      temperature: 0,
+      temperature: 68,
       convertFrom: ConvertFromTypes.FAHRENHEIT,
       convertTo: ConvertToTypes.TOCELSIUS
     });
@@ -28,12 +29,17 @@ export class WithComponent implements OnInit {
 
   convert() {
     const result = this.temperatureForm.value;
+
     const context = new TemperatureContext();
     context.convertTo = +result.convertTo;
     context.convertFrom = +result.convertFrom;
 
     this.strategy = new TemperatureConversionStrategy(context);
-    this.convertedResult = this.strategy.calculate(result.temperature);
+    try {
+      this.convertedResult = this.strategy.calculate(result.temperature);
+    } catch (e) {
+      this.errorMessage = e;
+    }
   }
 
 }
