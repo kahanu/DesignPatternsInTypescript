@@ -23,12 +23,13 @@ export class WithComponent implements OnInit {
     this.temperatureForm = this.fb.group({
       temperature: 68,
       convertFrom: ConvertFromTypes.FAHRENHEIT,
-      convertTo: ConvertToTypes.TOCELSIUS
+      convertTo: ConvertToTypes.CELSIUS
     });
   }
 
   convert() {
     const result = this.temperatureForm.value;
+    this.errorMessage = null;
 
     const context = new TemperatureContext();
     context.convertTo = +result.convertTo;
