@@ -8,17 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class StrategyPatternComponent implements OnInit {
   message: string;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-    this.init();
-  }
-
-  init() {
-    const x: Map<string, string> = new Map<string, string>();
-    x.set('golf', 'Going Golfing');
-    x.set('hike', 'Going hiking');
-    this.message = x.get('hike');
-  }
-
+  ngOnInit() {}
 }
