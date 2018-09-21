@@ -36,7 +36,8 @@ This application demonstrates how you can use design patterns in an Angular 5+ a
 (A work in progress)
 
 As of: 
-* September 12, 2018
+* September 20, 2018
+* ~~September 12, 2018~~
 * ~~August 2, 2018~~
 
 Please feel free to contribute.
