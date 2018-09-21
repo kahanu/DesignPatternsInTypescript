@@ -1,8 +1,8 @@
-@fortawesome/angular-fontawesome@0.1.1
+@angular/core@5.2.11
 MIT
 MIT
 
-@angular/core@5.2.11
+@fortawesome/angular-fontawesome@0.1.1
 MIT
 MIT
 
