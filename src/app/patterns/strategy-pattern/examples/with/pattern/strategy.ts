@@ -49,11 +49,6 @@ class ToFahrenheitTemperature implements Temperature {
   calculate(temperature: number): string {
     if (this.validator.validate()) {
       let result = 0;
-      // if (this.context.convertFrom === ConvertFromTypes.KELVIN) {
-      //   result = Math.round((temperature - 273.15) * 1.8 + 32);
-      // } else if (this.context.convertFrom === ConvertFromTypes.CELSIUS) {
-      //   result = Math.round(temperature * 1.8 + 32);
-      // }
 
       result = this.formula.calculate(temperature);
 
@@ -75,11 +70,6 @@ class ToCelsiusTemperature implements Temperature {
   calculate(temperature: number): string {
     if (this.validator.validate()) {
       let result = 0;
-      // if (this.context.convertFrom === ConvertFromTypes.FAHRENHEIT) {
-      //   result = Math.round((temperature - 32) * 0.55555555);
-      // } else if (this.context.convertFrom === ConvertFromTypes.KELVIN) {
-      //   result = Math.round(temperature - 273.15);
-      // }
 
       result = this.formula.calculate(temperature);
 
@@ -102,11 +92,7 @@ class ToKelvinTemperature implements Temperature {
   calculate(temperature: number): string {
     if (this.validator.validate()) {
       let result = 0;
-      // if (this.context.convertFrom === ConvertFromTypes.CELSIUS) {
-      //   result = temperature + 273.15;
-      // } else if (this.context.convertFrom === ConvertFromTypes.FAHRENHEIT) {
-      //   result = Math.round((temperature - 32) * 0.55555555) + 273.15;
-      // }
+
       result = this.formula.calculate(temperature);
 
       return result.toString() + '&#8490;';
@@ -139,6 +125,12 @@ export class TemperatureConversionStrategy {
 
 
 //#region Strategy classes for determining temperature calculations
+
+/**
+ * Granted, this is way overkill with the strategy pattern, but I originally had
+ * 'if' statements in the strategy classes and I didn't like that.  I wanted to
+ * see if I could get rid of the 'if' statements in favor of something more elegant.
+ */
 
 interface Formula {
   calculate(temperature: number): number;
