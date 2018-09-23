@@ -8,11 +8,15 @@
       This pattern is useful if you find yourself in a situation where you are using either a switch statement or if/else with many branches.
       It's best to break that functionality out into separate classes that handle just the logic for that strategy.
     </p>
-    <h3>Title</h3>
-    <p>description...</p>
+    <h3>Temperature Converter</h3>
+    <p>In this sample application, we will convert temperatures from Fahrenheit to Celsius to Kelvin.  </p>
+    <p>In the example with the pattern, I encapsulate the formulas for each conversion in it's own class, that is composed into a conversion class.
+      There is more code in the Strategy version, but in larger applications the strategy pattern helps to make ongoing management of the application easier.
+    </p>
     <p>
+      <a routerLink="/patterns/strategy/without">Without the Strategy Pattern</a><br>
       <a routerLink="/patterns/strategy/with">With the Strategy Pattern</a>
     </p>
-    <p>{{ message }}</p>
+
   </div>
 </div>
