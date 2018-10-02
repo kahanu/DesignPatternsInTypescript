@@ -40,3 +40,10 @@ blockquote {
   border-radius: 5px;
 }
 
+.author {
+  font-style: italic;
+  color: rgb(68, 68, 68);
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
