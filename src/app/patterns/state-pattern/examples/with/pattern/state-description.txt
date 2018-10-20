@@ -1,0 +1,29 @@
+Shopping cart state
+
+The state is used to display the current position of the progress bar.
+
+-- empty (state)
+Add Product (click)
+  -- productAdded (state)
+  -- show cart with Add Product or Checkout buttons
+Checkout (click)
+  -- checkout (state)
+  -- show customer form with cart items
+  -- show Pay button
+Pay (click)
+  -- pay (state)
+  -- show payment form with customer info and cart items
+  -- show Confirm button
+Confirm (click)
+  -- confirm (state)
+  -- show full cart information
+     -- customer info
+     -- cart items
+     -- pay info
+  -- show Submit button
+Done
+  -- done (state)
+  -- show continue shopping button
+
+Additional state
+-- error  (state)
