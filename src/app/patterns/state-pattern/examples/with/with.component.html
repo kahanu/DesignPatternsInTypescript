@@ -1,3 +1,32 @@
-<p>
-  with works!
-</p>
+<div class="progress-wrapper">
+  <div class="items">
+    <div class="item empty" [ngClass]="currentItemClass">Empty</div>
+    <div class="item products" [ngClass]="currentItemClass">Products</div>
+    <div class="item checkout" [ngClass]="currentItemClass">Checkout</div>
+    <div class="item pay" [ngClass]="currentItemClass">Pay</div>
+    <div class="item confirm" [ngClass]="currentItemClass">Confirm</div>
+    <div class="item done" [ngClass]="currentItemClass">Done</div>
+  </div>
+  <div class="progress">
+    <div class="progress-bars" [ngClass]="currentClass" role="progressbar" style="width:20%">
+
+    </div>
+    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
+
+    </div>
+    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
+
+    </div>
+    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
+
+    </div>
+    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
+
+    </div>
+  </div>
+</div>
+
+
+<button class="btn btn-primary" (click)="next()">Next</button>
+
+<button class="btn btn-primary" (click)="back()">Back</button>

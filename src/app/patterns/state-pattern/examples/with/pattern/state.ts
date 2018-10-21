@@ -1,14 +1,18 @@
 
 export interface State {
-  next(context: CartContext);
-  back(context: CartContext);
+  currentStateIndex: number;
+  next();
+  back();
+  getCurrentState();
+  getCurrentClass();
 }
 
 export class CartContext {
   private state: State;
+  currentStateIndex: number;
 
   constructor() {
-    this.state = new Empty();
+    this.state = new Empty(this);
   }
 
   setState(state: State) {
@@ -16,64 +20,143 @@ export class CartContext {
   }
 
   next() {
-    this.state.next(this);
+    this.state.next();
   }
 
   back() {
-    this.state.back(this);
+    this.state.back();
+  }
+
+  getCurrentState() {
+    return this.state.getCurrentState();
+  }
+
+  getCurrentClass() {
+    return this.state.getCurrentClass();
   }
 }
 
 export class Empty implements State {
-  next(context: CartContext) {
-    context.setState(new AddProduct());
+  currentStateIndex = 0;
+  constructor(private context: CartContext) {
+
   }
-  back(context: CartContext) {
-    context.setState(this);
+  getCurrentClass() {
+    return 'emptyOn';
+  }
+  getCurrentState() {
+    return 'Empty';
+  }
+  next() {
+    this.context.currentStateIndex = this.currentStateIndex;
+    this.context.setState(new AddProduct(this.context));
+  }
+  back() {
+    this.context.setState(this);
   }
 }
 
 export class AddProduct implements State {
-  next(context: CartContext) {
-    context.setState(new Checkout());
+  currentStateIndex = 1;
+  constructor(private context: CartContext) {
+
   }
-  back(context: CartContext) {
-    context.setState(new Empty());
+  getCurrentClass() {
+    console.log('context index: ', this.context.currentStateIndex, 'local index: ', this.currentStateIndex);
+    return (this.context.currentStateIndex >= this.currentStateIndex) ? 'productsOn' : '';
+  }
+  getCurrentState() {
+    return 'Products';
+  }
+  next() {
+    this.context.currentStateIndex = this.currentStateIndex + 1;
+    this.context.setState(new Checkout(this.context));
+  }
+  back() {
+    this.context.setState(new Empty(this.context));
   }
 }
 
 export class Checkout implements State {
-  next(context: CartContext) {
-    context.setState(new Pay());
+  currentStateIndex = 2;
+  constructor(private context: CartContext) {
+
   }
-  back(context: CartContext) {
-    context.setState(new AddProduct());
+  getCurrentClass() {
+    console.log('context index: ', this.context.currentStateIndex, 'local index: ', this.currentStateIndex);
+    return (this.context.currentStateIndex >= this.currentStateIndex) ? 'checkoutOn' : '';
+  }
+  getCurrentState() {
+    return 'Checkout';
+  }
+  next() {
+    this.context.currentStateIndex = this.currentStateIndex + 1;
+    this.context.setState(new Pay(this.context));
+  }
+  back() {
+    this.context.setState(new AddProduct(this.context));
   }
 }
 
 export class Pay implements State {
-  next(context: CartContext) {
-    context.setState(new Confirm());
+  currentStateIndex = 3;
+  constructor(private context: CartContext) {
+
   }
-  back(context: CartContext) {
-    context.setState(new Checkout());
+  getCurrentClass() {
+    console.log('context index: ', this.context.currentStateIndex, 'local index: ', this.currentStateIndex);
+    return (this.context.currentStateIndex >= this.currentStateIndex) ? 'payOn' : '';
+  }
+  getCurrentState() {
+    return 'Pay';
+  }
+  next() {
+    this.context.currentStateIndex = this.currentStateIndex + 1;
+    this.context.setState(new Confirm(this.context));
+  }
+  back() {
+    this.context.setState(new Checkout(this.context));
   }
 }
 
 export class Confirm implements State {
-  next(context: CartContext) {
-    context.setState(new Done());
+  currentStateIndex = 4;
+  constructor(private context: CartContext) {
+
   }
-  back(context: CartContext) {
-    context.setState(new Pay());
+  getCurrentClass() {
+    console.log('context index: ', this.context.currentStateIndex, 'local index: ', this.currentStateIndex);
+    return (this.context.currentStateIndex >= this.currentStateIndex) ? 'confirmOn' : '';
+  }
+  getCurrentState() {
+    return 'Confirm Order';
+  }
+  next() {
+    this.context.currentStateIndex = this.currentStateIndex + 1;
+    this.context.setState(new Done(this.context));
+  }
+  back() {
+    this.context.setState(new Pay(this.context));
   }
 }
 
 export class Done implements State {
-  next(context: CartContext) {
-    context.setState(new Empty());
+  currentStateIndex = 5;
+  constructor(private context: CartContext) {
+
   }
-  back(context: CartContext) {
-    context.setState(new Confirm());
+  getCurrentClass() {
+    console.log('context index: ', this.context.currentStateIndex, 'local index: ', this.currentStateIndex);
+    return (this.context.currentStateIndex >= this.currentStateIndex) ? 'doneOn' : '';
+  }
+  getCurrentState() {
+    return 'Done';
+  }
+  next() {
+    this.context.currentStateIndex = this.currentStateIndex + 1;
+    this.context.setState(new Empty(this.context));
+  }
+  back() {
+    this.context.setState(new Confirm(this.context));
   }
 }

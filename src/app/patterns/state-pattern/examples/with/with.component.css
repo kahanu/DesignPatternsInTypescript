@@ -1,0 +1,77 @@
+.progress-wrapper {
+  margin-bottom: 20px;
+}
+
+
+.items {
+  position: relative;
+  height: 30px;
+}
+
+.item {
+  position: absolute;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  background-color: #cdcdcd;
+  color: #a5a3a3;
+  width: 64px;
+  text-align: center;
+}
+
+.products {
+  left: calc(20% - 32px);
+}
+
+.checkout {
+  left: calc(40% - 32px);
+}
+
+.pay {
+  left: calc(60% - 32px);
+}
+
+.confirm {
+  left: calc(80% - 32px);
+}
+
+.done {
+  right: 0;
+}
+
+.emptyOn {
+  background-color: #d82f2f;
+  color: #fff;
+}
+
+.productsOn {
+  background-color: #49bb3e;
+  color: #fff;
+}
+
+.checkoutOn {
+  background-color: #e9da0e;
+  color: #fff;
+}
+
+.payOn {
+  background-color: #2f84d8;
+  color: #fff;
+}
+
+.confirmOn {
+  background-color: #d8942f;
+  color: #fff;
+}
+
+.doneOn {
+  background-color: #d22fd8;
+  color: #fff;
+}
+
+
+.current {
+  background-color: #d82f2f;
+  color: #fff;
+}
+
