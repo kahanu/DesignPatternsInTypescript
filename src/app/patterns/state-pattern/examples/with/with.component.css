@@ -19,7 +19,7 @@
   text-align: center;
 }
 
-.products {
+.cart {
   left: calc(20% - 32px);
 }
 
@@ -39,7 +39,7 @@
   right: 0;
 }
 
-.emptyOn {
+.cartOn {
   background-color: #d82f2f;
   color: #fff;
 }
@@ -70,8 +70,10 @@
 }
 
 
-.current {
+.current, .completed {
   background-color: #d82f2f;
   color: #fff;
 }
+
+
 

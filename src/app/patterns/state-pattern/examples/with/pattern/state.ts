@@ -12,7 +12,7 @@ export class CartContext {
   currentStateIndex: number;
 
   constructor() {
-    this.state = new Empty(this);
+    this.state = new Products(this);
   }
 
   setState(state: State) {
@@ -36,28 +36,8 @@ export class CartContext {
   }
 }
 
-export class Empty implements State {
+export class Products implements State {
   currentStateIndex = 0;
-  constructor(private context: CartContext) {
-
-  }
-  getCurrentClass() {
-    return 'emptyOn';
-  }
-  getCurrentState() {
-    return 'Empty';
-  }
-  next() {
-    this.context.currentStateIndex = this.currentStateIndex;
-    this.context.setState(new AddProduct(this.context));
-  }
-  back() {
-    this.context.setState(this);
-  }
-}
-
-export class AddProduct implements State {
-  currentStateIndex = 1;
   constructor(private context: CartContext) {
 
   }
@@ -70,12 +50,35 @@ export class AddProduct implements State {
   }
   next() {
     this.context.currentStateIndex = this.currentStateIndex + 1;
+    this.context.setState(new Cart(this.context));
+  }
+  back() {
+    this.context.setState(this);
+  }
+}
+
+
+export class Cart implements State {
+  currentStateIndex = 1;
+  constructor(private context: CartContext) {
+
+  }
+  getCurrentClass() {
+    console.log('context index: ', this.context.currentStateIndex, 'local index: ', this.currentStateIndex);
+    return 'cartOn';
+  }
+  getCurrentState() {
+    return 'Cart';
+  }
+  next() {
+    this.context.currentStateIndex = this.currentStateIndex + 1;
     this.context.setState(new Checkout(this.context));
   }
   back() {
-    this.context.setState(new Empty(this.context));
+    this.context.setState(new Products(this.context));
   }
 }
+
 
 export class Checkout implements State {
   currentStateIndex = 2;
@@ -94,7 +97,7 @@ export class Checkout implements State {
     this.context.setState(new Pay(this.context));
   }
   back() {
-    this.context.setState(new AddProduct(this.context));
+    this.context.setState(new Products(this.context));
   }
 }
 
@@ -129,7 +132,7 @@ export class Confirm implements State {
     return (this.context.currentStateIndex >= this.currentStateIndex) ? 'confirmOn' : '';
   }
   getCurrentState() {
-    return 'Confirm Order';
+    return 'Confirm';
   }
   next() {
     this.context.currentStateIndex = this.currentStateIndex + 1;
@@ -154,7 +157,7 @@ export class Done implements State {
   }
   next() {
     this.context.currentStateIndex = this.currentStateIndex + 1;
-    this.context.setState(new Empty(this.context));
+    this.context.setState(new Products(this.context));
   }
   back() {
     this.context.setState(new Confirm(this.context));

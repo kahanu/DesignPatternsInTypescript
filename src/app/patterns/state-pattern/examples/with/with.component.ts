@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CartContext } from './pattern/state';
 
 @Component({
@@ -14,6 +14,13 @@ export class WithComponent implements OnInit {
   currentItemClass = '';
   emptyOnClass = 'emptyOn';
 
+  @ViewChild('productsItem') productsItem: ElementRef;
+  @ViewChild('cartItem') cartItem: ElementRef;
+  @ViewChild('checkoutItem') checkoutItem: ElementRef;
+  @ViewChild('payItem') payItem: ElementRef;
+  @ViewChild('confirmItem') confirmItem: ElementRef;
+  @ViewChild('doneItem') doneItem: ElementRef;
+
 
   constructor() {
     this.cartContext = new CartContext();
@@ -21,13 +28,39 @@ export class WithComponent implements OnInit {
 
   ngOnInit() {
     this.cartState = this.cartContext.getCurrentState();
+    console.log('initial state: ', this.cartState);
   }
 
   next() {
     this.cartContext.next();
     this.cartState = this.cartContext.getCurrentState();
     this.currentItemClass = this.cartContext.getCurrentClass();
-    console.log('cartState: ', this.cartState, 'class: ', this.currentItemClass);
+    console.log('cartState: ', this.cartState, ' - class: ', this.currentItemClass);
+
+    if (this.cartState === 'Cart') {
+      const cssItem = this.cartItem;
+      cssItem.nativeElement.className += ' ' + this.currentItemClass;
+    }
+
+    if (this.cartState === 'Checkout') {
+      const cssItem = this.checkoutItem;
+      cssItem.nativeElement.className += ' ' + this.currentItemClass;
+    }
+
+    if (this.cartState === 'Pay') {
+      const cssItem = this.payItem;
+      cssItem.nativeElement.className += ' ' + this.currentItemClass;
+    }
+
+    if (this.cartState === 'Confirm') {
+      const cssItem = this.confirmItem;
+      cssItem.nativeElement.className += ' ' + this.currentItemClass;
+    }
+
+    if (this.cartState === 'Done') {
+      const cssItem = this.doneItem;
+      cssItem.nativeElement.className += ' ' + this.currentItemClass;
+    }
 
   }
 
