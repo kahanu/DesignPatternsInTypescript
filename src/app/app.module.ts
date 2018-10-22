@@ -9,10 +9,12 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './shared/layout/layout.module';
 import { CoreModule } from './core/core.module';
+import { CARTCOMPONENTS } from './patterns/state-pattern/examples/with/components/cart';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ...CARTCOMPONENTS
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,9 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ...CARTCOMPONENTS
+  ]
 })
 export class AppModule { }

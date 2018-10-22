@@ -5,6 +5,7 @@ import { MediatorService } from './services/patterns/mediator/mediator.service';
 import { ExceptionService } from './services/exception.service';
 import { CommonFormGroups } from '../shared/formgroups/common';
 import { PubSubService } from './services/pub-sub/pub-sub.service';
+import { InjectableCartService } from '../dynamic/services';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { PubSubService } from './services/pub-sub/pub-sub.service';
     CommonFormGroups,
     ExceptionService,
     MediatorService,
-    PubSubService
+    PubSubService,
+    InjectableCartService
   ],
   declarations: []
 })

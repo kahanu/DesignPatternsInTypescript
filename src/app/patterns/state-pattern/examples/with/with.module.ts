@@ -6,10 +6,10 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { CartProgressBarComponent } from './components/cart-progress-bar/cart-progress-bar.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    WithRoutingModule
-  ],
-  declarations: [WithComponent, CartProgressBarComponent]
+  imports: [SharedModule, WithRoutingModule],
+  declarations: [
+    WithComponent,
+    CartProgressBarComponent
+  ]
 })
-export class WithModule { }
+export class WithModule {}
