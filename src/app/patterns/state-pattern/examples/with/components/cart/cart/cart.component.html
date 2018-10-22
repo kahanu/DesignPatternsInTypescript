@@ -1,3 +1,42 @@
-<p>
-  cart works!
-</p>
+<table class="table">
+  <colgroup>
+    <col id="item">
+    <col id="quantity">
+    <col id="itemprice">
+    <col id="total">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+      <th class="header-item-price">Item Price</th>
+      <th class="header-total">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Widget 1</td>
+      <td class="quantity">1</td>
+      <td class="item-price">{{ 10.99 | currency }}</td>
+      <td class="item-total">{{ 10.99 | currency }}</td>
+    </tr>
+    <tr>
+      <td>Widget 2</td>
+      <td class="quantity">1</td>
+      <td class="item-price">{{ 2.99 | currency }}</td>
+      <td class="item-total">{{ 2.99 | currency }}</td>
+    </tr>
+    <tr>
+      <td colspan="3" class="cart-total">Subtotal:</td>
+      <td class="amount-column"></td>
+    </tr>
+    <tr>
+      <td colspan="3" class="cart-total">Tax:</td>
+      <td class="amount-column"></td>
+    </tr>
+    <tr>
+      <td colspan="3" class="cart-total">Cart Total:</td>
+      <td class="amount-column"></td>
+    </tr>
+  </tbody>
+</table>

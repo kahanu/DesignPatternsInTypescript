@@ -27,27 +27,27 @@ export class InjectableCartService implements InjectableService {
   getComponents(): DynamicComponent[] {
     return [
       new DynamicComponent(ProductsComponent, {
-        btnTitle: 'Products',
+        title: 'Products',
         index: this._index
       }),
       new DynamicComponent(CartComponent, {
-        btnTitle: 'Cart',
+        title: 'Cart',
         index: this._index
       }),
       new DynamicComponent(CheckoutComponent, {
-        btnTitle: 'Checkout',
+        title: 'Checkout',
         index: this._index
       }),
       new DynamicComponent(PayComponent, {
-        btnTitle: 'Pay',
+        title: 'Pay',
         index: this._index
       }),
       new DynamicComponent(ConfirmComponent, {
-        btnTitle: 'Confirm Order',
+        title: 'Confirm Order',
         index: this._index
       }),
       new DynamicComponent(DoneComponent, {
-        btnTitle: 'Done',
+        title: 'Thanks',
         index: this._index
       })
     ];

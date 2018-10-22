@@ -1,11 +1,12 @@
+export class CurrentState {
+  index: number;
+  btnText: string;
+}
 
 /**
  * This is the public interface for the State object.
  */
 export interface State {
-  /** Store the current index of the state for use in various scenarios. */
-  currentStateIndex: number;
-
   /** Proceed to the next state in the work flow. */
   next();
 
@@ -22,7 +23,6 @@ export interface State {
  */
 export class CartContext {
   private state: State;
-  currentStateIndex: number;
 
   constructor() {
     /** Initialize the state */
@@ -51,11 +51,16 @@ export class CartContext {
 }
 
 export class Products implements State {
-  currentStateIndex = 0;
-  constructor(private context: CartContext) { }
+  currentState: CurrentState;
+
+  constructor(private context: CartContext) {
+    this.currentState = new CurrentState();
+    this.currentState.index = 0;
+    this.currentState.btnText = 'View Cart';
+   }
 
   getCurrentState() {
-    return this.currentStateIndex;
+    return this.currentState;
   }
   next() {
     this.context.setState(new Cart(this.context));
@@ -67,11 +72,16 @@ export class Products implements State {
 
 
 export class Cart implements State {
-  currentStateIndex = 1;
-  constructor(private context: CartContext) { }
+  currentState: CurrentState;
+
+  constructor(private context: CartContext) {
+    this.currentState = new CurrentState();
+    this.currentState.index = 1;
+    this.currentState.btnText = 'Checkout';
+   }
 
   getCurrentState() {
-    return this.currentStateIndex;
+    return this.currentState;
   }
   next() {
     this.context.setState(new Checkout(this.context));
@@ -83,11 +93,16 @@ export class Cart implements State {
 
 
 export class Checkout implements State {
-  currentStateIndex = 2;
-  constructor(private context: CartContext) { }
+  currentState: CurrentState;
+
+  constructor(private context: CartContext) {
+    this.currentState = new CurrentState();
+    this.currentState.index = 2;
+    this.currentState.btnText = 'Pay';
+   }
 
   getCurrentState() {
-    return this.currentStateIndex;
+    return this.currentState;
   }
   next() {
     this.context.setState(new Pay(this.context));
@@ -98,11 +113,16 @@ export class Checkout implements State {
 }
 
 export class Pay implements State {
-  currentStateIndex = 3;
-  constructor(private context: CartContext) { }
+  currentState: CurrentState;
+
+  constructor(private context: CartContext) {
+    this.currentState = new CurrentState();
+    this.currentState.index = 3;
+    this.currentState.btnText = 'Confirm Order';
+   }
 
   getCurrentState() {
-    return this.currentStateIndex;
+    return this.currentState;
   }
   next() {
     this.context.setState(new Confirm(this.context));
@@ -113,11 +133,16 @@ export class Pay implements State {
 }
 
 export class Confirm implements State {
-  currentStateIndex = 4;
-  constructor(private context: CartContext) {}
+  currentState: CurrentState;
+
+  constructor(private context: CartContext) {
+    this.currentState = new CurrentState();
+    this.currentState.index = 4;
+    this.currentState.btnText = 'Submit Order';
+  }
 
   getCurrentState() {
-    return this.currentStateIndex;
+    return this.currentState;
   }
   next() {
     this.context.setState(new Done(this.context));
@@ -128,11 +153,16 @@ export class Confirm implements State {
 }
 
 export class Done implements State {
-  currentStateIndex = 5;
-  constructor(private context: CartContext) {}
+  currentState: CurrentState;
+
+  constructor(private context: CartContext) {
+    this.currentState = new CurrentState();
+    this.currentState.index = 5;
+    this.currentState.btnText = null;
+  }
 
   getCurrentState() {
-    return this.currentStateIndex;
+    return this.currentState;
   }
   next() {
     this.context.setState(new Products(this.context));

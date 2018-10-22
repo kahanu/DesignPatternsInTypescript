@@ -16,4 +16,7 @@ export class ProductsComponent implements InjectableComponent, OnInit {
     this.index = this.data.index;
   }
 
+  addToCart(cartItem: number) {
+    console.log('cartItem: ', cartItem);
+  }
 }

@@ -1,0 +1,35 @@
+table > colgroup > col#item {
+  width: auto;
+}
+table > colgroup > col#quantity {
+  width: 100px;
+}
+table > colgroup > col#total,
+table > colgroup > col#itemprice {
+  width: 125px;
+}
+
+.header-item-price,
+.header-total {
+  text-align: right;
+}
+
+tbody td.quantity {
+  text-align: center;
+}
+
+tbody td.item-price {
+  text-align: right;
+}
+
+tbody td.item-total {
+  text-align: right;
+}
+
+.cart-total, .amount-column {
+  text-align: right;
+}
+
+.amount-column {
+  width: 125px;
+}

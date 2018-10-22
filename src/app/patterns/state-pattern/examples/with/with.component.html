@@ -4,7 +4,8 @@
   <app-dynamic-content [dynComponents]="components" [selectedIndex]="selectedIndex"></app-dynamic-content>
 </div>
 
-
-<button class="btn btn-primary" (click)="back()">Back</button>
-<button class="btn btn-primary" (click)="next()">Next</button>
-
+<div class="command-buttons">
+  <button class="btn btn-primary" (click)="back()" *ngIf="currentState.btnText && currentState.index > 0">Back</button>
+  <button class="btn btn-primary" (click)="next()" *ngIf="currentState.btnText">{{ currentState.btnText }}</button>
+  <button class="btn btn-success" (click)="next()" *ngIf="!currentState.btnText">Back to Shopping</button>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CartContext } from './pattern/state';
+import { CartContext, CurrentState } from './pattern/state';
 import { PubSubService } from '../../../../core/services/pub-sub/pub-sub.service';
 import { CartState } from '../../../../core/services/pub-sub/states/cart-state';
 import { DynamicComponent } from '../../../../dynamic/dynamic-component';
@@ -16,28 +16,33 @@ export class WithComponent implements OnInit {
   components: DynamicComponent[];
   component: DynamicComponent;
   selectedIndex: number;
+  currentState: CurrentState;
 
-  constructor(private pubSub: PubSubService,
-    private injectableCartService: InjectableCartService) {
+  constructor(
+    private pubSub: PubSubService,
+    private injectableCartService: InjectableCartService
+  ) {
     this.cartContext = new CartContext();
   }
 
   ngOnInit() {
-    this.cartState = this.cartContext.getCurrentState();
+    this.currentState = this.cartContext.getCurrentState();
 
     /**
      * The selectedIndex represents the dynamic cart component to display.  We must add 1 to the
      * index number because the dynamic component class doesn't like a zero index.
      */
-    this.selectedIndex = this.cartState + 1;
+    this.selectedIndex = this.currentState.index + 1;
     this.getComponents(this.selectedIndex);
   }
 
   next() {
     this.cartContext.next();
 
+    this.currentState = this.cartContext.getCurrentState();
+
     const cartState = new CartState();
-    cartState.index = this.cartContext.getCurrentState();
+    cartState.index = this.currentState.index;
 
     this.selectedIndex = cartState.index + 1;
 
@@ -48,8 +53,10 @@ export class WithComponent implements OnInit {
   back() {
     this.cartContext.back();
 
+    this.currentState = this.cartContext.getCurrentState();
+
     const cartState = new CartState();
-    cartState.index = this.cartContext.getCurrentState();
+    cartState.index = this.currentState.index;
 
     this.selectedIndex = cartState.index + 1;
 

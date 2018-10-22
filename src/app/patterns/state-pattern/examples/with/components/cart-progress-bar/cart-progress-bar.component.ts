@@ -36,7 +36,7 @@ export class CartProgressBarComponent implements OnInit {
   getComponents() {
     const components = this.injectableCartService.getComponents();
     components.forEach((item, index) => {
-      this.items.push({ title: item.data.btnTitle, index: index });
+      this.items.push({ title: item.data.title, index: index });
     });
   }
 }
