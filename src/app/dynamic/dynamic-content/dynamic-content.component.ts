@@ -26,7 +26,6 @@ export class DynamicContentComponent implements OnDestroy, OnChanges {
    * Load the selected component.
    */
   loadComponent() {
-    console.log('selectedIndex: ', this.selectedIndex);
     const selectedComponent = this.dynComponents[this.selectedIndex - 1];
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(selectedComponent.component);

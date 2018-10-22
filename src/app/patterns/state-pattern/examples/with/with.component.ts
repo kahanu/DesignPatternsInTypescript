@@ -24,7 +24,13 @@ export class WithComponent implements OnInit {
 
   ngOnInit() {
     this.cartState = this.cartContext.getCurrentState();
-    // this.selectedIndex = this.cartState + 1;
+
+    /**
+     * The selectedIndex represents the dynamic cart component to display.  We must add 1 to the
+     * index number because the dynamic component class doesn't like a zero index.
+     */
+    this.selectedIndex = this.cartState + 1;
+    this.getComponents(this.selectedIndex);
   }
 
   next() {
@@ -32,7 +38,10 @@ export class WithComponent implements OnInit {
 
     const cartState = new CartState();
     cartState.index = this.cartContext.getCurrentState();
+
     this.selectedIndex = cartState.index + 1;
+
+    /** Publish the cart state to the progress bar. */
     this.pubSub.publishCart(cartState);
   }
 
@@ -41,12 +50,22 @@ export class WithComponent implements OnInit {
 
     const cartState = new CartState();
     cartState.index = this.cartContext.getCurrentState();
+
     this.selectedIndex = cartState.index + 1;
+
+    /** Publish the cart state to the progress bar. */
     this.pubSub.publishCart(cartState);
   }
 
+  /** Get the dynamic cart components. */
   getComponents(index: number) {
+    /**
+     * This index represents which cart component is selected via the Next or Back buttons,
+     * and sets the index in the cart service which will return that component.
+     */
     this.injectableCartService.cartIndex = index;
+
+    /** Get all the dynamic cart components. */
     this.components = this.injectableCartService.getComponents();
   }
 }

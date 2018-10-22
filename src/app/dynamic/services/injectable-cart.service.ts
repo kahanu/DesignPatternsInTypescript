@@ -43,7 +43,7 @@ export class InjectableCartService implements InjectableService {
         index: this._index
       }),
       new DynamicComponent(ConfirmComponent, {
-        btnTitle: 'Confirm',
+        btnTitle: 'Confirm Order',
         index: this._index
       }),
       new DynamicComponent(DoneComponent, {
