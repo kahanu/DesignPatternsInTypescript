@@ -1,34 +1,5 @@
 <app-cart-progress-bar></app-cart-progress-bar>
 
-<div class="progress-wrapper">
-  <div class="items">
-    <div class="item products" #productsItem>Products</div>
-    <div class="item cart" #cartItem>Cart</div>
-    <div class="item checkout" #checkoutItem>Checkout</div>
-    <div class="item pay" #payItem>Pay</div>
-    <div class="item confirm" #confirmItem>Confirm</div>
-    <div class="item done" #doneItem>Done</div>
-  </div>
-  <div class="progress">
-    <div class="progress-bars" [ngClass]="currentClass" role="progressbar" style="width:20%">
-
-    </div>
-    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
-
-    </div>
-    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
-
-    </div>
-    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
-
-    </div>
-    <div class="progress-bar" [ngClass]="currentClass" role="progressbar" style="width:20%">
-
-    </div>
-  </div>
-</div>
-
-
 <button class="btn btn-primary" (click)="back()">Back</button>
 <button class="btn btn-primary" (click)="next()">Next</button>
 

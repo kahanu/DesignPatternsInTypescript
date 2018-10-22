@@ -40,4 +40,7 @@ ul.items > li:before {
 
 li.completed:before {
   border: 2px solid #09b322!important;
+  background-color: #09b322!important;
+  color: #fff;
 }
+

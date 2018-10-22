@@ -4,6 +4,7 @@ import { throwIfAlreadyLoaded } from './guards/module-import.guard';
 import { MediatorService } from './services/patterns/mediator/mediator.service';
 import { ExceptionService } from './services/exception.service';
 import { CommonFormGroups } from '../shared/formgroups/common';
+import { PubSubService } from './services/pub-sub/pub-sub.service';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { CommonFormGroups } from '../shared/formgroups/common';
   providers: [
     CommonFormGroups,
     ExceptionService,
-    MediatorService
+    MediatorService,
+    PubSubService
   ],
   declarations: []
 })
