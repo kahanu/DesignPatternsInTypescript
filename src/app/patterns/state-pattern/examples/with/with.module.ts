@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { WithRoutingModule } from './with-routing.module';
 import { WithComponent } from './with.component';
 import { SharedModule } from '../../../../shared/shared.module';
+import { CartProgressBarComponent } from './components/cart-progress-bar/cart-progress-bar.component';
 
 @NgModule({
   imports: [
     SharedModule,
     WithRoutingModule
   ],
-  declarations: [WithComponent]
+  declarations: [WithComponent, CartProgressBarComponent]
 })
 export class WithModule { }
