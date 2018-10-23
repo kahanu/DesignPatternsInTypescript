@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { InjectableComponent } from '../../../../../../../dynamic/interfaces/injectable-component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PubSubService } from '../../../../../../../core/services/pub-sub/pub-sub.service';
 
 @Component({
   selector: 'app-checkout',
@@ -8,11 +9,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements InjectableComponent, OnInit {
-  @Input() data: any;
+  @Input()
+  data: any;
   index: number;
   form: FormGroup;
+  isValid: boolean;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private pubSub: PubSubService) {}
 
   ngOnInit() {
     this.index = this.data.index;

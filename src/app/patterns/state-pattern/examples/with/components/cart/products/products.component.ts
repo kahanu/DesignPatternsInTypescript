@@ -13,9 +13,11 @@ export class ProductsComponent implements InjectableComponent, OnInit {
   data: any;
   index: number;
   products: Array<CartItem>;
-  shoppingCart: ShoppingCart = new ShoppingCart();
+  shoppingCart: ShoppingCart;
 
-  constructor(private pubSub: PubSubService) {}
+  constructor(private pubSub: PubSubService) {
+    this.shoppingCart = new ShoppingCart();
+  }
 
   ngOnInit() {
     this.index = this.data.index;

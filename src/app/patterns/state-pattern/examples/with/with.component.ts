@@ -22,6 +22,8 @@ export class WithComponent implements OnInit, OnDestroy {
   currentState: CurrentState;
   subscription: ISubscription;
   errorMessage: string;
+  customerFormIsValid: boolean;
+  disableNextButton = false;
 
   constructor(
     private pubSub: PubSubService,
@@ -45,6 +47,7 @@ export class WithComponent implements OnInit, OnDestroy {
 
   next() {
     this.errorMessage = null;
+
     this.subscription = this.pubSub.getViewCart().subscribe(cart => {
       if (cart.items.length > 0) {
         this.cartContext.next();

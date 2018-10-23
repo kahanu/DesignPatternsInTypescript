@@ -8,6 +8,7 @@ export class PubSubService {
 
   private cartProgressPublisher = new BehaviorSubject<CartProgressState>(new CartProgressState());
   private viewCartPublisher = new BehaviorSubject<ShoppingCart>(new ShoppingCart());
+  private customerFormPublisher = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 
@@ -26,6 +27,15 @@ export class PubSubService {
 
   getViewCart(): Observable<ShoppingCart> {
     return this.viewCartPublisher.asObservable();
+  }
+
+
+  publishCustomerForm(isValid: boolean) {
+    this.customerFormPublisher.next(isValid);
+  }
+
+  getCustomerForm(): Observable<boolean> {
+    return this.customerFormPublisher.asObservable();
   }
 
 }
