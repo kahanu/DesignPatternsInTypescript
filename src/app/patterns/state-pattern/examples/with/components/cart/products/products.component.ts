@@ -35,6 +35,5 @@ export class ProductsComponent implements InjectableComponent, OnInit {
     this.shoppingCart.addItem(cartItem);
 
     this.pubSub.publishViewCart(this.shoppingCart);
-    console.log('shoppingCart: ', this.shoppingCart);
   }
 }

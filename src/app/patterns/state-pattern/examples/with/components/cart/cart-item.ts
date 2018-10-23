@@ -12,9 +12,13 @@ export class ShoppingCart {
 
   addItem(item: CartItem) {
     this.items.push(item);
+    let subTotal = 0;
+
     this.items.forEach(cartItem => {
-      this.subTotal += cartItem.price;
+      subTotal += cartItem.price;
     });
+
+    this.subTotal = subTotal;
 
     this.tax = +(this.subTotal * 0.0875).toFixed(2);
     this.total = +(this.subTotal + this.tax).toFixed(2);

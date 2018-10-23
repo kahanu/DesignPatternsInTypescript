@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CartProgressState } from './states/cart-state';
 import { Observable, BehaviorSubject } from 'rxjs/';
-import { CartItem, ShoppingCart } from '../../../patterns/state-pattern/examples/with/components/cart/cart-item';
+import { ShoppingCart } from '../../../patterns/state-pattern/examples/with/components/cart/cart-item';
 
 @Injectable()
 export class PubSubService {

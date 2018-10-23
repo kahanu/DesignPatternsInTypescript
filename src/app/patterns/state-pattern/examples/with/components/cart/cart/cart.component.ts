@@ -1,18 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InjectableComponent } from '../../../../../../../dynamic/interfaces/injectable-component';
 import { PubSubService } from '../../../../../../../core/services/pub-sub/pub-sub.service';
-import { CartItem, ShoppingCart } from '../cart-item';
+import { ShoppingCart } from '../cart-item';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements InjectableComponent, OnInit {
+export class CartComponent implements InjectableComponent, OnInit, OnDestroy {
   @Input() data: any;
   index: number;
   shoppingCart: ShoppingCart;
-  // items: CartItem[] = [];
 
   constructor(private pubSub: PubSubService) { }
 
@@ -23,5 +24,7 @@ export class CartComponent implements InjectableComponent, OnInit {
         this.shoppingCart = cart;
       });
   }
+
+  ngOnDestroy() { }
 
 }

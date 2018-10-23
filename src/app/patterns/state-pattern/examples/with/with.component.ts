@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { CartContext, CurrentState } from './pattern/state';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CartContext, CurrentState, Products } from './pattern/state';
 import { PubSubService } from '../../../../core/services/pub-sub/pub-sub.service';
 import { CartProgressState } from '../../../../core/services/pub-sub/states/cart-state';
 import { DynamicComponent } from '../../../../dynamic/dynamic-component';
 import { InjectableCartService } from '../../../../dynamic/services';
+import { ShoppingCart } from './components/cart/cart-item';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { ISubscription } from 'rxjs/Subscription';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-with',
   templateUrl: './with.component.html',
   styleUrls: ['./with.component.css']
 })
-export class WithComponent implements OnInit {
+export class WithComponent implements OnInit, OnDestroy {
   cartContext: CartContext;
   components: DynamicComponent[];
   component: DynamicComponent;
   selectedIndex: number;
   currentState: CurrentState;
+  subscription: ISubscription;
+  errorMessage: string;
 
   constructor(
     private pubSub: PubSubService,
@@ -35,8 +41,34 @@ export class WithComponent implements OnInit {
     this.getComponents(this.selectedIndex);
   }
 
+  ngOnDestroy() {}
+
   next() {
-    this.cartContext.next();
+    this.errorMessage = null;
+    this.subscription = this.pubSub.getViewCart().subscribe(cart => {
+      if (cart.items.length > 0) {
+        this.cartContext.next();
+
+        this.currentState = this.cartContext.getCurrentState();
+
+        const cartProgressState = new CartProgressState();
+        cartProgressState.index = this.currentState.index;
+
+        this.selectedIndex = cartProgressState.index + 1;
+
+        /** Publish the cart state to the progress bar. */
+        this.pubSub.publishCartProgress(cartProgressState);
+      }
+      if (cart.items.length === 0 && this.currentState.index === 0) {
+        this.errorMessage = 'Please add one or more products to the cart.';
+      }
+    });
+
+    this.subscription.unsubscribe();
+  }
+
+  back() {
+    this.cartContext.back();
 
     this.currentState = this.cartContext.getCurrentState();
 
@@ -49,8 +81,9 @@ export class WithComponent implements OnInit {
     this.pubSub.publishCartProgress(cartProgressState);
   }
 
-  back() {
-    this.cartContext.back();
+  continueShopping() {
+    this.pubSub.publishViewCart(new ShoppingCart());
+    this.cartContext = new CartContext();
 
     this.currentState = this.cartContext.getCurrentState();
 
