@@ -1,3 +1,27 @@
-<p>
-  <a routerLink="/patterns/state/with">With the State Pattern</a>
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <h1>State Pattern</h1>
+    <div class="author">
+      by <a href="http://github.com/Kahanu" target="_blank">King Wilder</a>
+    </div>
+    <blockquote>The state pattern is a behavioral software design pattern to allow an object to alter its behavior when its internal state changes.</blockquote>
+    <h2>When is this used?</h2>
+    <p>The State Pattern can be used anywhere you need to change the state of an object and react to it.
+      Your cellphone has a state machine that changes the state of it's connection based on your coverage area.  When the state changes in your application,
+    you can react to it, by preventing a specific action, and alerting the user of a problem or invalid command.</p>
+    <h3>Shopping Cart</h3>
+    <p>This demonstration will use the shopping cart as the example of how to use the State Pattern.  Each step of the shopping cart path is a different state,
+      and the application keeps track of the current state, and can allow you to proceed or go back.  When it hits specific states, like the end of the cart
+      process, it can alert the application to change the buttons so the user cannot proceed, but instead continue shopping.
+    </p>
+
+    <p>
+      <a routerLink="/patterns/state/without">Without the State Pattern</a><br>
+      <a routerLink="/patterns/state/with">With the State Pattern</a>
+    </p>
+    <p>
+      <i><b>Disclaimer</b> - like many of the examples here, each of the design patterns can and most likely do, implement more than one design pattern to
+      present it's pattern, so don't be surprised if you see more than one pattern in the examples.</i>
+    </p>
+  </div>
+</div>
