@@ -1,3 +1,31 @@
-<p>
-  view-cart works!
-</p>
+<h3>Cart</h3>
+<div class="shopping-cart">
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th class="price">Price</th>
+      </tr>
+    </thead>
+    <tr class="cart-item" *ngFor="let cart of shoppingCart.items">
+      <td>{{ cart.name }}</td>
+      <td class="price">{{ cart.price | currency }}</td>
+    </tr>
+    <tr class="total-block">
+      <th>Subtotal</th>
+      <td class="amount">{{ shoppingCart.subTotal | currency }}</td>
+    </tr>
+    <tr>
+      <th>Tax</th>
+      <td class="amount">{{ shoppingCart.tax | currency }}</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <th class="amount">{{ shoppingCart.total | currency }}</th>
+    </tr>
+  </table>
+
+  <div class="cart-total">
+
+  </div>
+</div>

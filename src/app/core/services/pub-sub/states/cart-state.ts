@@ -4,7 +4,13 @@
  *
  * Currently it just holds the index of the selected dynamic cart component
  * to be displayed in the page.
+ *
+ * This is used for the cart progress bar.
  */
-export class CartState {
+export class CartProgressState {
   index = 0;
+}
+
+export class ViewCartState {
+
 }

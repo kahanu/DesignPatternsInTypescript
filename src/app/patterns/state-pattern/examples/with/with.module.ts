@@ -10,8 +10,7 @@ import { ViewCartComponent } from './components/cart/view-cart/view-cart.compone
   imports: [SharedModule, WithRoutingModule],
   declarations: [
     WithComponent,
-    CartProgressBarComponent,
-    ViewCartComponent
+    CartProgressBarComponent
   ]
 })
 export class WithModule {}

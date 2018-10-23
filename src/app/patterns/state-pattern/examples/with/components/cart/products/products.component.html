@@ -1,24 +1,11 @@
 <h2>Products</h2>
 <div class="products">
-  <div class="product">
+  <div class="product" *ngFor="let product of products">
     <ul>
-      <li><b>Item:</b>Widget 1</li>
-      <li><b>Price:</b> $10.99</li>
-      <li><button class="btn btn-default btn-sm" (click)="addToCart(1)">Add to Cart</button></li>
+      <li><b>Item:</b> {{ product.name }}</li>
+      <li><b>Price:</b> {{ product.price | currency }}</li>
+      <li><button class="btn btn-default btn-sm" (click)="addToCart(product)">Add to Cart</button></li>
     </ul>
   </div>
-  <div class="product">
-    <ul>
-      <li><b>Item:</b>Widget 2</li>
-      <li><b>Price:</b> $2.99</li>
-      <li><button class="btn btn-default btn-sm" (click)="addToCart(2)">Add to Cart</button></li>
-    </ul>
-  </div>
-  <div class="product">
-    <ul>
-      <li><b>Item:</b>Widget 3</li>
-      <li><b>Price:</b> $104.99</li>
-      <li><button class="btn btn-default btn-sm" (click)="addToCart(3)">Add to Cart</button></li>
-    </ul>
-  </div>
+
 </div>

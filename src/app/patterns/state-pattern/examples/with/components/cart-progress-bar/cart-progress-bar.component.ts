@@ -22,7 +22,7 @@ export class CartProgressBarComponent implements OnInit {
   }
 
   setCartState() {
-    this.pubSub.getCart().subscribe(res => {
+    this.pubSub.getCartProgress().subscribe(res => {
       this.items.forEach(item => {
         if (item.index <= res.index) {
           item.css = 'completed';

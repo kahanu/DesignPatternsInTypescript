@@ -33,3 +33,7 @@ tbody td.item-total {
 .amount-column {
   width: 125px;
 }
+
+.total-block {
+  border-top: 2px solid #000;
+}

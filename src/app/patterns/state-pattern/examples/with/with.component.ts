@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartContext, CurrentState } from './pattern/state';
 import { PubSubService } from '../../../../core/services/pub-sub/pub-sub.service';
-import { CartState } from '../../../../core/services/pub-sub/states/cart-state';
+import { CartProgressState } from '../../../../core/services/pub-sub/states/cart-state';
 import { DynamicComponent } from '../../../../dynamic/dynamic-component';
 import { InjectableCartService } from '../../../../dynamic/services';
 
@@ -12,7 +12,6 @@ import { InjectableCartService } from '../../../../dynamic/services';
 })
 export class WithComponent implements OnInit {
   cartContext: CartContext;
-  cartState: number;
   components: DynamicComponent[];
   component: DynamicComponent;
   selectedIndex: number;
@@ -41,13 +40,13 @@ export class WithComponent implements OnInit {
 
     this.currentState = this.cartContext.getCurrentState();
 
-    const cartState = new CartState();
-    cartState.index = this.currentState.index;
+    const cartProgressState = new CartProgressState();
+    cartProgressState.index = this.currentState.index;
 
-    this.selectedIndex = cartState.index + 1;
+    this.selectedIndex = cartProgressState.index + 1;
 
     /** Publish the cart state to the progress bar. */
-    this.pubSub.publishCart(cartState);
+    this.pubSub.publishCartProgress(cartProgressState);
   }
 
   back() {
@@ -55,13 +54,13 @@ export class WithComponent implements OnInit {
 
     this.currentState = this.cartContext.getCurrentState();
 
-    const cartState = new CartState();
-    cartState.index = this.currentState.index;
+    const cartProgressState = new CartProgressState();
+    cartProgressState.index = this.currentState.index;
 
-    this.selectedIndex = cartState.index + 1;
+    this.selectedIndex = cartProgressState.index + 1;
 
     /** Publish the cart state to the progress bar. */
-    this.pubSub.publishCart(cartState);
+    this.pubSub.publishCartProgress(cartProgressState);
   }
 
   /** Get the dynamic cart components. */
