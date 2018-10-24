@@ -6,7 +6,7 @@ import { DynamicComponent } from '../../../../dynamic/dynamic-component';
 import { InjectableCartService } from '../../../../dynamic/services';
 import { ShoppingCart } from './components/cart/cart-item';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { ISubscription } from 'rxjs/Subscription';
+import { ISubscription, Subscription } from 'rxjs/Subscription';
 
 @AutoUnsubscribe()
 @Component({
@@ -19,19 +19,21 @@ export class WithComponent implements OnInit, OnDestroy {
   components: DynamicComponent[];
   selectedIndex: number;
   currentState: CurrentState;
-  subscription: ISubscription;
+  subscription: Subscription;
   errorMessage: string;
   customerFormIsValid: boolean;
-  disableNextButton = false;
+  isNextButtonDisabled = false;
 
   constructor(
     private pubSub: PubSubService,
     private injectableCartService: InjectableCartService
   ) {
     this.cartContext = new CartContext();
+
   }
 
   ngOnInit() {
+    this.validateCustomerForm();
     this.currentState = this.cartContext.getCurrentState();
 
     /**
@@ -42,31 +44,38 @@ export class WithComponent implements OnInit, OnDestroy {
     this.getComponents(this.selectedIndex);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   next() {
     this.errorMessage = null;
 
-    this.subscription = this.pubSub.getViewCart().subscribe(cart => {
-      if (cart.items.length > 0) {
-        this.cartContext.next();
-
+    const subscription = this.pubSub.getViewCart().subscribe(cart => {
+      try {
+        console.log('next cart: ', cart);
+        this.cartContext.next(cart);
         this.currentState = this.cartContext.getCurrentState();
-
-        const cartProgressState = new CartProgressState();
-        cartProgressState.index = this.currentState.index;
-
-        this.selectedIndex = cartProgressState.index + 1;
-
-        /** Publish the cart state to the progress bar. */
-        this.pubSub.publishCartProgress(cartProgressState);
+        // if (this.currentState.validForm) {
+          // this.isNextButtonDisabled = !this.currentState.validForm;
+        // }
+      } catch (error) {
+        this.errorMessage = error;
+        return;
       }
-      if (cart.items.length === 0 && this.currentState.index === 0) {
-        this.errorMessage = 'Please add one or more products to the cart.';
-      }
+
+      this.currentState = this.cartContext.getCurrentState();
+
+      const cartProgressState = new CartProgressState();
+      cartProgressState.index = this.currentState.index;
+
+      this.selectedIndex = cartProgressState.index + 1;
+
+      /** Publish the cart state to the progress bar. */
+      this.pubSub.publishCartProgress(cartProgressState);
     });
 
-    this.subscription.unsubscribe();
+    subscription.unsubscribe();
   }
 
   back() {
@@ -108,5 +117,11 @@ export class WithComponent implements OnInit, OnDestroy {
 
     /** Get all the dynamic cart components. */
     this.components = this.injectableCartService.getComponents();
+  }
+
+  validateCustomerForm() {
+    this.subscription = this.pubSub.getCustomerForm().subscribe(isValid => {
+      if (isValid) { this.errorMessage = null; }
+    });
   }
 }

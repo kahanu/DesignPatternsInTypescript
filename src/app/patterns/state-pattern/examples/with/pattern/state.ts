@@ -1,6 +1,9 @@
+import { ShoppingCart } from '../components/cart/cart-item';
+
 export class CurrentState {
   index: number;
   btnText: string;
+  validForm: boolean;
 }
 
 /**
@@ -8,7 +11,7 @@ export class CurrentState {
  */
 export interface State {
   /** Proceed to the next state in the work flow. */
-  next();
+  next(cart: ShoppingCart);
 
   /** Go back to a previous state in the work flow. */
   back();
@@ -35,8 +38,8 @@ export class CartContext {
   }
 
   /** Proceed to the next state in the work flow. */
-  next() {
-    this.state.next();
+  next(cart: ShoppingCart) {
+    this.state.next(cart);
   }
 
   /** Go back to the previous state in the work flow. */
@@ -57,12 +60,16 @@ export class Products implements State {
     this.currentState = new CurrentState();
     this.currentState.index = 0;
     this.currentState.btnText = 'View Cart';
+    this.currentState.validForm = true;
    }
 
   getCurrentState() {
     return this.currentState;
   }
-  next() {
+  next(cart: ShoppingCart) {
+    if (cart.items.length === 0) {
+      throw new Error('Please add one or more products to the cart.');
+    }
     this.context.setState(new Cart(this.context));
   }
   back() {
@@ -78,6 +85,7 @@ export class Cart implements State {
     this.currentState = new CurrentState();
     this.currentState.index = 1;
     this.currentState.btnText = 'Checkout';
+    this.currentState.validForm = true;
    }
 
   getCurrentState() {
@@ -99,12 +107,18 @@ export class Checkout implements State {
     this.currentState = new CurrentState();
     this.currentState.index = 2;
     this.currentState.btnText = 'Pay';
+    this.currentState.validForm = false;
    }
 
   getCurrentState() {
     return this.currentState;
   }
-  next() {
+  next(cart: ShoppingCart) {
+    if (!cart.customerFormIsValid) {
+      this.currentState = new CurrentState();
+      this.currentState.validForm = false;
+      throw new Error('Some Customer fields are missing.');
+    }
     this.context.setState(new Pay(this.context));
   }
   back() {

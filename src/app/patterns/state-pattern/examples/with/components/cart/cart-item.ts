@@ -9,6 +9,8 @@ export class ShoppingCart {
   subTotal = 0;
   tax = 0;
   total = 0;
+  customerFormIsValid: boolean;
+  paymentFormIsValid: boolean;
 
   addItem(item: CartItem) {
     this.items.push(item);
