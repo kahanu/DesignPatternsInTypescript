@@ -17,7 +17,7 @@ import { ISubscription } from 'rxjs/Subscription';
 export class WithComponent implements OnInit, OnDestroy {
   cartContext: CartContext;
   components: DynamicComponent[];
-  component: DynamicComponent;
+  // component: DynamicComponent;
   selectedIndex: number;
   currentState: CurrentState;
   subscription: ISubscription;

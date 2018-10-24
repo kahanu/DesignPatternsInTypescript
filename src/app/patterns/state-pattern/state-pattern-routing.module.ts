@@ -5,7 +5,8 @@ import { WithComponent } from './examples/with/with.component';
 
 const routes: Routes = [
   { path: '', component: StatePatternComponent },
-  { path: 'with', loadChildren: 'app/patterns/state-pattern/examples/with/with.module#WithModule' }
+  { path: 'with', loadChildren: 'app/patterns/state-pattern/examples/with/with.module#WithModule' },
+  { path: 'without', loadChildren: 'app/patterns/state-pattern/examples/without/without.module#WithoutModule' }
 ];
 
 @NgModule({
