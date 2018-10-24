@@ -13,17 +13,17 @@
 
         <div class="form-group">
           <label>Name on Card</label>
-          <input type="text" class="form-control" placeholder="Name on card" formControlName="nameOnCard" required>
+          <input type="text" class="form-control" placeholder="Name on card" formControlName="nameOnCard" required (change)="onBlur($event)">
         </div>
 
         <div class="form-group">
           <label>Card Number</label>
-          <input type="text" class="form-control" placeholder="Card Number" formControlName="cardNumber" required>
+          <input type="text" class="form-control" placeholder="Card Number" formControlName="cardNumber" required (change)="onBlur($event)">
         </div>
 
         <div class="form-group">
           <label>Security Code</label>
-          <input type="text" class="form-control" placeholder="Security Code" formControlName="securityCode" required>
+          <input type="text" class="form-control" placeholder="Security Code" formControlName="securityCode" required (change)="onBlur($event)">
         </div>
 
         <div class="form-row">

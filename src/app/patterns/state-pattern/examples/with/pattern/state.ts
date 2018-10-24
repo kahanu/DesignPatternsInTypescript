@@ -3,7 +3,6 @@ import { ShoppingCart } from '../components/cart/cart-item';
 export class CurrentState {
   index: number;
   btnText: string;
-  validForm: boolean;
 }
 
 /**
@@ -60,7 +59,6 @@ export class Products implements State {
     this.currentState = new CurrentState();
     this.currentState.index = 0;
     this.currentState.btnText = 'View Cart';
-    this.currentState.validForm = true;
    }
 
   getCurrentState() {
@@ -85,7 +83,6 @@ export class Cart implements State {
     this.currentState = new CurrentState();
     this.currentState.index = 1;
     this.currentState.btnText = 'Checkout';
-    this.currentState.validForm = true;
    }
 
   getCurrentState() {
@@ -107,7 +104,6 @@ export class Checkout implements State {
     this.currentState = new CurrentState();
     this.currentState.index = 2;
     this.currentState.btnText = 'Pay';
-    this.currentState.validForm = false;
    }
 
   getCurrentState() {
@@ -115,9 +111,7 @@ export class Checkout implements State {
   }
   next(cart: ShoppingCart) {
     if (!cart.customerFormIsValid) {
-      this.currentState = new CurrentState();
-      this.currentState.validForm = false;
-      throw new Error('Some Customer fields are missing.');
+      throw new Error('Some Customer fields are invalid.');
     }
     this.context.setState(new Pay(this.context));
   }
@@ -138,7 +132,10 @@ export class Pay implements State {
   getCurrentState() {
     return this.currentState;
   }
-  next() {
+  next(cart: ShoppingCart) {
+    if (!cart.paymentFormIsValid) {
+      throw new Error('Some Payment fields are invalid.');
+    }
     this.context.setState(new Confirm(this.context));
   }
   back() {

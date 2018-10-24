@@ -34,6 +34,7 @@ export class WithComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.validateCustomerForm();
+    this.validatePaymentForm();
     this.currentState = this.cartContext.getCurrentState();
 
     /**
@@ -53,12 +54,7 @@ export class WithComponent implements OnInit, OnDestroy {
 
     const subscription = this.pubSub.getViewCart().subscribe(cart => {
       try {
-        console.log('next cart: ', cart);
         this.cartContext.next(cart);
-        this.currentState = this.cartContext.getCurrentState();
-        // if (this.currentState.validForm) {
-          // this.isNextButtonDisabled = !this.currentState.validForm;
-        // }
       } catch (error) {
         this.errorMessage = error;
         return;
@@ -121,6 +117,12 @@ export class WithComponent implements OnInit, OnDestroy {
 
   validateCustomerForm() {
     this.subscription = this.pubSub.getCustomerForm().subscribe(isValid => {
+      if (isValid) { this.errorMessage = null; }
+    });
+  }
+
+  validatePaymentForm() {
+    this.pubSub.getPaymentForm().subscribe(isValid => {
       if (isValid) { this.errorMessage = null; }
     });
   }
