@@ -60,12 +60,12 @@ export class WithoutComponent implements OnInit {
             this.currentStateIndex = 5;
             this.btnText = null;
             this.showCommandButtons = false;
-            // this.pubSub.publishViewCart(new ShoppingCart());
             break;
           case 5: // show done
             this.currentStateIndex = 0;
             this.btnText = 'ViewCart';
             this.showCommandButtons = true;
+            this.pubSub.publishViewCart(new ShoppingCart());
             break;
           default:
             this.currentStateIndex = 0;
@@ -92,23 +92,19 @@ export class WithoutComponent implements OnInit {
   back() {
     const index = this.currentStateIndex;
     switch (index) {
-      // case 0: // show cart
-      //   this.currentStateIndex = 1;
-      //   this.btnText = 'Products';
-      //   break;
-      case 1: // show checkout
+      case 1: // show products
         this.currentStateIndex = 0;
         this.btnText = 'View Cart';
         break;
-      case 2: // show pay
+      case 2: // show cart
         this.currentStateIndex = 1;
         this.btnText = 'Checkout';
         break;
-      case 3: // show confirm order
+      case 3: // show customer info
         this.currentStateIndex = 2;
         this.btnText = 'Pay';
         break;
-      case 4: // show place order
+      case 4: // show pay
         this.currentStateIndex = 3;
         this.btnText = 'Confirm';
         break;

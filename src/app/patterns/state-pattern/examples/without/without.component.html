@@ -1,26 +1,28 @@
+<app-floating-cart></app-floating-cart>
+
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/">Patterns</a></li>
-      <li class="breadcrumb-item"><a routerLink="/patterns/state">State Pattern</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Without</li>
-    </ol>
-  </nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Patterns</a></li>
+    <li class="breadcrumb-item"><a routerLink="/patterns/state">State Pattern</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Without</li>
+  </ol>
+</nav>
 
-  <app-cart-progress-bar></app-cart-progress-bar>
+<app-cart-progress-bar></app-cart-progress-bar>
 
-  <div *ngIf="selectedIndex" style="height: 388px;">
-    <app-dynamic-content [dynComponents]="components" [selectedIndex]="selectedIndex"></app-dynamic-content>
-  </div>
+<div *ngIf="selectedIndex" style="height: 388px;">
+  <app-dynamic-content [dynComponents]="components" [selectedIndex]="selectedIndex"></app-dynamic-content>
+</div>
 
-  <div class="command-buttons">
-    <div class="row">
-      <div class="col-3">
-        <button class="btn btn-default" (click)="back()" *ngIf="showCommandButtons && currentStateIndex > 0">Back</button>
-        <button class="btn btn-primary" (click)="next()" *ngIf="showCommandButtons">{{ btnText }}</button>
-        <button class="btn btn-success" (click)="next()" *ngIf="!showCommandButtons">Back to Shopping</button>
-      </div>
-      <div class="col">
-        <div class="alert alert-danger" *ngIf="errorMessage" role="alert">{{ errorMessage }}</div>
-      </div>
+<div class="command-buttons">
+  <div class="row">
+    <div class="col-3">
+      <button class="btn btn-default" (click)="back()" *ngIf="showCommandButtons && currentStateIndex > 0">Back</button>
+      <button class="btn btn-primary" (click)="next()" *ngIf="showCommandButtons">{{ btnText }}</button>
+      <button class="btn btn-success" (click)="next()" *ngIf="!showCommandButtons">Back to Shopping</button>
+    </div>
+    <div class="col">
+      <div class="alert alert-danger" *ngIf="errorMessage" role="alert">{{ errorMessage }}</div>
     </div>
   </div>
+</div>
