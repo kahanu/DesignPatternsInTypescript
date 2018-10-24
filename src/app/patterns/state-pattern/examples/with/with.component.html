@@ -15,7 +15,7 @@
 <div class="command-buttons">
   <div class="row">
     <div class="col-3">
-      <button class="btn btn-primary" (click)="back()" *ngIf="currentState.btnText && currentState.index > 0">Back</button>
+      <button class="btn btn-default" (click)="back()" *ngIf="currentState.btnText && currentState.index > 0">Back</button>
       <button class="btn btn-primary" (click)="next()" *ngIf="currentState.btnText">{{ currentState.btnText }}</button>
       <button class="btn btn-success" (click)="continueShopping()" *ngIf="!currentState.btnText">Back to Shopping</button>
     </div>

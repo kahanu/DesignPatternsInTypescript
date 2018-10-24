@@ -6,6 +6,10 @@
   margin-top: 20px;
 }
 
+button.btn-primary {
+  width: 130px;
+}
+
 
 .items {
   position: relative;
